@@ -1,8 +1,8 @@
 import React, {useState, useEffect } from 'react';
-import api from './API/Burgers';
-import './App.css';
-import AppHeader from './components/UI/AppHeader/AppHeader';
-import Content from './components/UI/Content/Content';
+import AppHeader from '../AppHeader/AppHeader';
+import Content from '../Content/Content';
+import api from '../../../API/Burgers';
+import './App.module.css';
 
 function App() {
   const [ingredients, setIngredients] = useState([]);

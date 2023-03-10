@@ -69,7 +69,7 @@ const BurgerIngredients = ({ ingredients }) => {
                     <h2 className="text text_type_main-medium">Булки</h2>
                     <ul className={styles.menu__item}>
                         {buns.map((ingredient) => {
-                            return <IngredientTemplate handleClick={setIngredientsState} ingredients={ingredient} />;
+                            return <IngredientTemplate handleClick={setIngredientsState} ingredients={ingredient} key={ingredient._id} />;
                         })}
                     </ul>
                 </article>
@@ -77,7 +77,7 @@ const BurgerIngredients = ({ ingredients }) => {
                     <h2 className="text text_type_main-medium">Соусы</h2>
                     <ul className={styles.menu__item}>
                         {sauces.map((ingredient) => {
-                            return <IngredientTemplate handleClick={setIngredientsState} ingredients={ingredient} />;
+                            return <IngredientTemplate handleClick={setIngredientsState} ingredients={ingredient} key={ingredient._id} />;
                         })}
                     </ul>
                 </article>
@@ -85,12 +85,20 @@ const BurgerIngredients = ({ ingredients }) => {
                     <h2 className="text text_type_main-medium">Начинки</h2>
                     <ul className={styles.menu__item} style={{ marginBottom: 0 }}>
                         {mains.map((ingredient) => {
-                            return <IngredientTemplate handleClick={setIngredientsState} ingredients={ingredient} />;
+                            return <IngredientTemplate handleClick={setIngredientsState} ingredients={ingredient} key={ingredient._id} />;
                         })}
                     </ul>
                 </article>
                 <>
-                    {!!currentIngredient && <div><ModalOverlay handleClick={handleCloseModal}></ModalOverlay><Modal>{<IngredientDetails ingredient={currentIngredient} handleClick={handleCloseModal} />}</Modal></div>}
+                    {!!currentIngredient && 
+                    <div>
+                        <ModalOverlay handleClick={handleCloseModal}>
+                        </ModalOverlay>
+                        <Modal handleClick={handleCloseModal}>
+                            {<IngredientDetails ingredient={currentIngredient} handleClick={handleCloseModal} />}
+                        </Modal>
+                    </div>
+                    }
                 </>
             </div>
         </section>
