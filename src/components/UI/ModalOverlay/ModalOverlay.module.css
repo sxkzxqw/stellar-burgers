@@ -9,4 +9,5 @@
     top: 0;
     background-color: rgba(0, 0, 0, 0.5);
     transition: all 0.5s ease;
+    z-index: 0;
 }

@@ -4,6 +4,7 @@ import Modal from '../Modal/Modal';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import styles from './BurgerConstructor.module.css';
+const modalRoot = document.getElementById('modal');
 
 const BurgerConstructor = ({ ingredients }) => {
     let buns = [];
@@ -34,36 +35,38 @@ const BurgerConstructor = ({ ingredients }) => {
             <div className={styles.buns}>
                 {buns.map((ingredient) => {
                     return <ConstructorElement
-                    type='top'
-                    isLocked={true}
-                    text={`${ingredient.name} (вверх)`}
-                    price={ingredient.price}
-                    thumbnail={ingredient.image}
-                />;
+                        key={ingredient._id}
+                        type='top'
+                        isLocked={true}
+                        text={`${ingredient.name} (вверх)`}
+                        price={ingredient.price}
+                        thumbnail={ingredient.image}
+                    />;
                 })}
             </div>
             <ul className={`${styles.order__list} custom-scroll`}>
                 {others.map((ingredient) => {
                     return (
-                    <li className={styles.element__container}>
-                        <DragIcon type='primary' />
-                        <ConstructorElement
-                        text={`${ingredient.name}`}
-                        price={ingredient.price}
-                        thumbnail={ingredient.image}
-                        />
-                    </li>
+                        <li className={styles.element__container} key={ingredient._id}>
+                            <DragIcon type='primary' />
+                            <ConstructorElement
+                                text={`${ingredient.name}`}
+                                price={ingredient.price}
+                                thumbnail={ingredient.image}
+                            />
+                        </li>
                     )
                 })}
             </ul>
             <div className={styles.buns_type_bottom}>
                 {buns.map((ingredient) => {
                     return <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text={`${ingredient.name} (низ)`}
-                    price={ingredient.price}
-                    thumbnail={ingredient.image}
+                        key={ingredient._id}
+                        type="bottom"
+                        isLocked={true}
+                        text={`${ingredient.name} (низ)`}
+                        price={ingredient.price}
+                        thumbnail={ingredient.image}
                     />;
                 })}
             </div>
@@ -76,9 +79,14 @@ const BurgerConstructor = ({ ingredients }) => {
                     Оформить заказ
                 </Button>
             </div>
-            <>
-                {!!modal && <div><ModalOverlay handleClick={handleCloseModal}></ModalOverlay><Modal>{<OrderDetails handleClick={handleCloseModal} />}</Modal></div>}
-            </>
+                {!!modal && 
+                <div>
+                    <ModalOverlay handleClick={handleCloseModal}>
+                    </ModalOverlay>
+                    <Modal handleClick={handleCloseModal}>
+                        {<OrderDetails handleClick={handleCloseModal} />}
+                    </Modal>
+                </div>}
         </section>
     );
 };
