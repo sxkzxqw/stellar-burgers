@@ -1,0 +1,27 @@
+.os-scrollbar {
+    --os-size: 8px;
+    --os-padding-perpendicular: 0;
+    --os-padding-axis: 0;
+    --os-track-border-radius: 0;
+    --os-track-bg: #2F2F37;
+    --os-track-bg-hover: #2F2F37;
+    --os-track-bg-active: #2F2F37;
+    --os-track-border: none;
+    --os-track-border-hover: none;
+    --os-track-border-active: none;
+    --os-handle-border-radius: 6px;
+    --os-handle-bg: #8585AD;
+    --os-handle-bg-hover: #8585AD;
+    --os-handle-bg-active: #8585AD;
+    --os-handle-border: #2F2F37;
+    --os-handle-border-hover: none;
+    --os-handle-border-active: none;
+    --os-handle-min-size: 70%;
+    --os-handle-max-size: none;
+    --os-handle-perpendicular-size: 100%;
+    --os-handle-perpendicular-size-hover: 100%;
+    --os-handle-perpendicular-size-active: 100%;
+    --os-handle-interactive-area-offset: 0;
+    --os-scrollbar-track: 50%;
+}
+  

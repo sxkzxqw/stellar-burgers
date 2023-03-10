@@ -1,0 +1,43 @@
+.menu__options {
+    margin-top: 40px;
+}
+
+.menu__item {
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+    padding: 0;
+    margin-top: 24px;
+    margin-bottom: 40px;
+    column-gap: 24px;
+    row-gap: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.menu {
+    min-width: 600px;
+    padding-top: 40px;
+}
+
+.menu__nav {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 56px;
+    padding: 0;
+    margin-bottom: 0px;
+}
+
+.menu__option {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: inset 0px -1px 0px #2F2F37;
+    cursor: pointer;
+}
