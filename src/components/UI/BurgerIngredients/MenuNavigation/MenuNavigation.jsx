@@ -1,6 +1,7 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import styles from './MenuNavigation.module.css';
+import PropTypes from 'prop-types';
 
 const MenuNavigation = ({current, setCurrent}) => {
 
@@ -24,5 +25,10 @@ const MenuNavigation = ({current, setCurrent}) => {
       </div>
     );
 };
+
+MenuNavigation.propTypes = {
+  current: PropTypes.string,
+  setCurrent: PropTypes.func
+}
 
 export default MenuNavigation;

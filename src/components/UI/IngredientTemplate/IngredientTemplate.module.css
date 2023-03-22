@@ -9,6 +9,7 @@
     max-width: 272px;
     cursor: pointer;
     transition: all .3s ease;
+    position: relative;
 }
 
 .ingredient__template:hover {
@@ -20,4 +21,10 @@
     display: flex;
     flex-direction: row;
     gap: 9px;
+}
+
+.counter {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

@@ -4,11 +4,17 @@ import 'overlayscrollbars/overlayscrollbars.css';
 import './index.css';
 import Favicon from 'react-favicon';
 import App from './components/UI/App/App';
+import { store } from './services/store';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <>
     <Favicon url='https://cdn.onlinewebfonts.com/svg/download_477971.png' />
-    <App />
-  </React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </>
+  // </React.StrictMode>
 );

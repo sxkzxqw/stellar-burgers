@@ -1,8 +1,12 @@
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentIngredient } from '../../../services/features/selectors/burgerIngredientsselectors';
 import styles from './IngredientDetails.module.css';
+import PropTypes from 'prop-types';
 
-const IngredientDetails = ({ingredient, handleClick }) => {
+const IngredientDetails = ({handleClick}) => {
+    const ingredient = useSelector(selectCurrentIngredient);
     return (
         <div className={styles.container}>
             <div className={styles.title}>
@@ -34,5 +38,9 @@ const IngredientDetails = ({ingredient, handleClick }) => {
         </div>
     );
 };
+
+IngredientDetails.propTypes = {
+    handleClick: PropTypes.func
+}
 
 export default IngredientDetails;

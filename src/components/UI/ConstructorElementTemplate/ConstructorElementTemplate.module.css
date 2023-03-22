@@ -1,0 +1,8 @@
+.element__container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+}
