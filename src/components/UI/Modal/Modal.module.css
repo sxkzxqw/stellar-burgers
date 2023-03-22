@@ -15,3 +15,22 @@
     justify-content: center;
     align-items: center;
 }
+
+.button {
+    background: inherit;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .4s ease;
+    position: absolute;
+    right: 40px;
+    top: 60px;
+}
+
+.button:hover {
+    opacity: 0.5;
+    scale: 1.3;
+}

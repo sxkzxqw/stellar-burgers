@@ -18,3 +18,8 @@
     box-shadow: inset 0px -1px 0px #2F2F37;
     cursor: pointer;
 }
+
+.nav {
+    display: flex;
+    margin-top: 20px;
+}

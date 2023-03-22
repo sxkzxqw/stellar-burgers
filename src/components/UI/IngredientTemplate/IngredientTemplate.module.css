@@ -28,3 +28,8 @@
     top: 0;
     right: 0;
 }
+
+.text_name {
+    height: 48px;
+    text-align: center;
+}

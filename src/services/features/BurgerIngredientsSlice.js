@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-
+import { BASE_URL } from '../../API/Burgers'
 const initialState = {
     ingredients: [],
     currentIngredient: null
@@ -9,7 +9,7 @@ const initialState = {
 export const getIngredients = createAsyncThunk(
     'burgerIngredient/get',
     async (_, { rejectWithValue, dispatch }) => {
-        const res = await axios.get('https://norma.nomoreparties.space/api/ingredients')
+        const res = await axios.get(BASE_URL + 'ingredients');
         dispatch(setIngredients(res.data))
     }
 )

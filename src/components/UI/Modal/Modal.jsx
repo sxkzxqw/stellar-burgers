@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import styles from './Modal.module.css';
 import PropTypes from 'prop-types';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modalRoot = document.getElementById('modal');
 
@@ -30,6 +31,9 @@ const Modal = ({children, handleClick}) => {
     return createPortal (
       <ModalOverlay>
         <div className={styles.modal}>
+          <button type='button' className={styles.button} onClick={handleClick}>
+                <CloseIcon type='primary' />
+          </button>
             {children}
         </div>
       </ModalOverlay>,

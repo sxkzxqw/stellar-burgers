@@ -12,7 +12,7 @@ const MenuNavigation = ({current, setCurrent}) => {
     }
 
     return (
-        <div style={{ display: 'flex', marginTop: '20px' }}>
+        <div className={styles.nav}>
         <Tab value="bun" active={current === 'bun'} onClick={changeActiveIngredient}>
           Булки
         </Tab>

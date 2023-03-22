@@ -24,22 +24,20 @@ const IngredientTemplate = ({ ingredient }) => {
     const counter = useSelector((state) => selectCountState(state, id))
 
     return (
-        <>
-            <li className={styles.ingredient__template} onClick={() => dispatch(setCurrentIngredient(ingredient._id))} ref={drag}>
-                <img className={styles.ingredient__image} src={ingredient.image} alt={ingredient.name} />
-                {counter != 0 
+        <li className={styles.ingredient__template} onClick={() => dispatch(setCurrentIngredient(ingredient._id))} ref={drag}>
+            <img className={styles.ingredient__image} src={ingredient.image} alt={ingredient.name} />
+            {counter != 0
                 ? <Counter count={counter} size='default' className={styles.counter} />
                 : null
-                }
-                <div className={styles.ingredient__price}>
-                    <p className="text text_type_digits-default">{ingredient.price}</p>
-                    <CurrencyIcon type='primary' />
-                </div>
-                <p className='text text_type_main-default' style={{ height: '48px', textAlign: 'center' }}>
-                    {ingredient.name}
-                </p>
-            </li>
-        </>
+            }
+            <div className={styles.ingredient__price}>
+                <p className="text text_type_digits-default">{ingredient.price}</p>
+                <CurrencyIcon type='primary' />
+            </div>
+            <p className={`${styles.text_name} text text_type_main-default`}>
+                {ingredient.name}
+            </p>
+        </li>
     );
 };
 

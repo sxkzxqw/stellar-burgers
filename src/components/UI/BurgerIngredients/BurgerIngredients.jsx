@@ -8,7 +8,7 @@ import Modal from '../Modal/Modal';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import styles from './BurgerIngredients.module.css';
 import MenuNavigation from './MenuNavigation/MenuNavigation';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isModalVisible, selectBuns, selectMains, selectSauces } from '../../../services/features/selectors/burgerIngredientsselectors';
 
 const BurgerIngredients = () => {
@@ -20,11 +20,11 @@ const BurgerIngredients = () => {
     const mains = useSelector(selectMains)
     const isCurrentModalVisible = useSelector(isModalVisible)
 
-    useEffect(function(){
+    useEffect(function () {
         dispatch(getIngredients())
-      }, [dispatch])
+    }, [dispatch])
 
-    function handleCloseModal(){
+    function handleCloseModal() {
         dispatch(clearCurrentIngredient())
     }
 
@@ -35,10 +35,10 @@ const BurgerIngredients = () => {
 
     const [current, setCurrent] = useState('bun');
 
-    const [ refBun, inViewBun ] = useInView();
-    const [ refMain, inViewMain ] = useInView();
-    const [ refSauce, inViewSauce ] = useInView();
-    
+    const [refBun, inViewBun] = useInView();
+    const [refMain, inViewMain] = useInView();
+    const [refSauce, inViewSauce] = useInView();
+
     useEffect(() => {
         if (inViewBun) {
             setCurrent('bun')
@@ -76,21 +76,19 @@ const BurgerIngredients = () => {
                 </article>
                 <article id={'main'} ref={refMain}>
                     <h2 className="text text_type_main-medium">Начинки</h2>
-                    <ul className={styles.menu__item} style={{ marginBottom: 0 }}>
+                    <ul className={styles.menu__item}>
                         {mains.map((ingredient) => {
                             return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
                         })}
                     </ul>
                 </article>
-                <>
-                    {isCurrentModalVisible && 
+                {isCurrentModalVisible &&
                     <div>
                         <Modal handleClick={handleCloseModal}>
-                            {<IngredientDetails handleClick={handleCloseModal} />}
+                            {<IngredientDetails />}
                         </Modal>
                     </div>
-                    }
-                </>
+                }
             </div>
         </section>
     );

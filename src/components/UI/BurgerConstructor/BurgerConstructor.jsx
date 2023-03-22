@@ -139,7 +139,7 @@ const BurgerConstructor = (props) => {
             {!!modal &&
                 <div>
                     <Modal handleClick={handleCloseModal}>
-                        {<OrderDetails handleClick={handleCloseModal} />}
+                        {<OrderDetails />}
                     </Modal>
                 </div>}
         </section>
