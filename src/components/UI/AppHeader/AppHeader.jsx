@@ -15,26 +15,26 @@ const AppHeader = () => {
             <nav className={styles.header__nav}>
                 <ul className={styles.header__list}>
                     <li className={styles.header__items}>
-                        <HeaderLinks 
-                        handleClick={pageIsActive}
-                        value="main"
-                        active={activePage === 'main'}
-                        text={'Конструктор'}
+                        <HeaderLinks
+                            handleClick={pageIsActive}
+                            value="main"
+                            active={activePage === 'main'}
+                            text={'Конструктор'}
                         >
                             <BurgerIcon type={activePage === 'main' ? 'primary' : 'secondary'} />
                         </HeaderLinks>
-                        <HeaderLinks 
-                        handleClick={pageIsActive}
-                        active={activePage === 'feed'}
-                        value="feed"
-                        text={'Лента заказов'}
+                        <HeaderLinks
+                            handleClick={pageIsActive}
+                            active={activePage === 'feed'}
+                            value="feed"
+                            text={'Лента заказов'}
                         >
-                            <ListIcon type={activePage === 'feed'? 'primary' : 'secondary'} />
+                            <ListIcon type={activePage === 'feed' ? 'primary' : 'secondary'} />
                         </HeaderLinks>
                     </li>
                     <Logo className={styles.header__logo} />
                     <li className={styles.header__account}>
-                        <HeaderLinks 
+                        <HeaderLinks
                             handleClick={pageIsActive}
                             text={'Личный кабинет'}
                             active={activePage === 'personal'}
@@ -42,7 +42,7 @@ const AppHeader = () => {
                         >
                             <ProfileIcon type={activePage === 'personal' ? 'primary' : 'secondary'} />
 
-                            </HeaderLinks>
+                        </HeaderLinks>
                     </li>
                 </ul>
             </nav>
