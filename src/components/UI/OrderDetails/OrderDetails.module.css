@@ -13,21 +13,9 @@
     position: relative;
 }
 
-.button {
-    background: inherit;
-    border: 0;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all .4s ease;
-    position: absolute;
-    right: -106px;
-    top: 60px;
-}
-
-.button:hover {
-    opacity: 0.5;
-    scale: 1.3;
+.image {
+    width: 120px;
+    overflow: hidden;
+    object-fit: none;
+    height: 120px;
 }

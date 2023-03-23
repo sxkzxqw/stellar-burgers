@@ -1,51 +1,44 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useScrollbar } from '../../../hooks/use-scrollbar';
+import { clearCurrentIngredient, getIngredients, setCurrentIngredient } from '../../../services/features/BurgerIngredientsSlice';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import IngredientTemplate from '../IngredientTemplate/IngredientTemplate';
 import Modal from '../Modal/Modal';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import styles from './BurgerIngredients.module.css';
 import MenuNavigation from './MenuNavigation/MenuNavigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { isModalVisible, selectBuns, selectMains, selectSauces } from '../../../services/features/selectors/burgerIngredientsselectors';
 
-const BurgerIngredients = ({ ingredients }) => {
+const BurgerIngredients = () => {
 
-    let buns = [];
-    let sauces = [];
-    let mains = [];
+    const dispatch = useDispatch()
 
-    for (let i = 0; i < ingredients.length; i++) {
-        if (ingredients[i].type === 'bun') {
-            buns.push(ingredients[i]);
-        } else if (ingredients[i].type === 'sauce') {
-            sauces.push(ingredients[i]);
-        } else if (ingredients[i].type === 'main') {
-            mains.push(ingredients[i]);
-        }
+    const buns = useSelector(selectBuns)
+    const sauces = useSelector(selectSauces)
+    const mains = useSelector(selectMains)
+    const isCurrentModalVisible = useSelector(isModalVisible)
+
+    useEffect(function () {
+        dispatch(getIngredients())
+    }, [dispatch])
+
+    function handleCloseModal() {
+        dispatch(clearCurrentIngredient())
     }
-
-    function handleCloseModal(){
-        setCurrentIngredient(null)
-    }
-
-    function setIngredientsState (state) {
-        setCurrentIngredient(state)
-    }
-
-    const [currentIngredient, setCurrentIngredient] = useState(null);
 
     const hasScroll = buns.length > 0;
     const wrapper = useRef(null);
 
     useScrollbar(wrapper, hasScroll);
 
-
     const [current, setCurrent] = useState('bun');
 
-    const [ refBun, inViewBun ] = useInView();
-    const [ refMain, inViewMain ] = useInView();
-    const [ refSauce, inViewSauce ] = useInView();
-    
+    const [refBun, inViewBun] = useInView();
+    const [refMain, inViewMain] = useInView();
+    const [refSauce, inViewSauce] = useInView();
+
     useEffect(() => {
         if (inViewBun) {
             setCurrent('bun')
@@ -69,7 +62,7 @@ const BurgerIngredients = ({ ingredients }) => {
                     <h2 className="text text_type_main-medium">Булки</h2>
                     <ul className={styles.menu__item}>
                         {buns.map((ingredient) => {
-                            return <IngredientTemplate handleClick={setIngredientsState} ingredients={ingredient} key={ingredient._id} />;
+                            return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
                         })}
                     </ul>
                 </article>
@@ -77,29 +70,25 @@ const BurgerIngredients = ({ ingredients }) => {
                     <h2 className="text text_type_main-medium">Соусы</h2>
                     <ul className={styles.menu__item}>
                         {sauces.map((ingredient) => {
-                            return <IngredientTemplate handleClick={setIngredientsState} ingredients={ingredient} key={ingredient._id} />;
+                            return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
                         })}
                     </ul>
                 </article>
                 <article id={'main'} ref={refMain}>
                     <h2 className="text text_type_main-medium">Начинки</h2>
-                    <ul className={styles.menu__item} style={{ marginBottom: 0 }}>
+                    <ul className={styles.menu__item}>
                         {mains.map((ingredient) => {
-                            return <IngredientTemplate handleClick={setIngredientsState} ingredients={ingredient} key={ingredient._id} />;
+                            return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
                         })}
                     </ul>
                 </article>
-                <>
-                    {!!currentIngredient && 
+                {isCurrentModalVisible &&
                     <div>
-                        <ModalOverlay handleClick={handleCloseModal}>
-                        </ModalOverlay>
                         <Modal handleClick={handleCloseModal}>
-                            {<IngredientDetails ingredient={currentIngredient} handleClick={handleCloseModal} />}
+                            {<IngredientDetails />}
                         </Modal>
                     </div>
-                    }
-                </>
+                }
             </div>
         </section>
     );

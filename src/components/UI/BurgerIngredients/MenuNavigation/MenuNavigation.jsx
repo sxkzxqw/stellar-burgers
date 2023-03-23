@@ -1,6 +1,7 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState } from 'react';
 import styles from './MenuNavigation.module.css';
+import PropTypes from 'prop-types';
 
 const MenuNavigation = ({current, setCurrent}) => {
 
@@ -11,7 +12,7 @@ const MenuNavigation = ({current, setCurrent}) => {
     }
 
     return (
-        <div style={{ display: 'flex', marginTop: '20px' }}>
+        <div className={styles.nav}>
         <Tab value="bun" active={current === 'bun'} onClick={changeActiveIngredient}>
           Булки
         </Tab>
@@ -24,5 +25,10 @@ const MenuNavigation = ({current, setCurrent}) => {
       </div>
     );
 };
+
+MenuNavigation.propTypes = {
+  current: PropTypes.string,
+  setCurrent: PropTypes.func
+}
 
 export default MenuNavigation;

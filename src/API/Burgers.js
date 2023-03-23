@@ -1,3 +1,5 @@
+export const BASE_URL = 'https://norma.nomoreparties.space/api/';
+
 const config = {
     url: 'https://norma.nomoreparties.space/api/ingredients',
     headers: {

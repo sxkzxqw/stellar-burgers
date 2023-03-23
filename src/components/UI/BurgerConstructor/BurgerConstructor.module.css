@@ -19,6 +19,7 @@
     justify-content: flex-end;
     width: 100%;
     margin-top: 40px;
+    box-sizing: border-box;
 }
 
 .order__list {
@@ -27,16 +28,8 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    overflow-y: scroll;
-    height: 464px;
-}
-
-.element__container {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
+    overflow-y: auto;
+    max-height: 464px;
 }
 
 .buns {
