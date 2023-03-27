@@ -16,6 +16,10 @@
     padding-right: 26px;
 }
 
+.menu__item_type_last {
+    margin-bottom: 0;
+}
+
 .menu {
     min-width: 600px;
     padding-top: 40px;

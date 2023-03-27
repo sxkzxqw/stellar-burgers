@@ -1,18 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios';
-import { BASE_URL } from '../../API/Burgers';
+import { axiosInstance } from '../../API/Burgers';
 
 const initialState = {
     orderIngredients: null,
+    isLoading: false,
 }
 
 export const sendOrder = createAsyncThunk(
     'order/post',
     async (selectOrderDetails, { rejectWithValue, dispatch }) => {
-        const res = await axios.post(BASE_URL + 'orders', {
+        const res = await axiosInstance.post('orders', {
             'ingredients': selectOrderDetails
         })
-        dispatch(setOrderDetails(res.data))
+        return res.data;
     }
 )
 
@@ -25,9 +25,17 @@ export const orderSlice = createSlice({
         },
     },
     extraReducers: {
-        [sendOrder.fulfilled]: () => console.log('fulfiled'),
-        [sendOrder.pending]: () => console.log('pending'),
-        [sendOrder.rejected]: () => console.log('rejected')
+        [sendOrder.fulfilled]: (state, action) => {
+            state.orderIngredients = action.payload;
+            state.isLoading = false;
+        },
+        [sendOrder.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [sendOrder.rejected]: (state) => {
+            state.isLoading = false;
+            alert('Ошибка запроса')
+        }
     }
 })
 
