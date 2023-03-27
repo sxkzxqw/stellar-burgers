@@ -20,6 +20,8 @@ const BurgerIngredients = () => {
     const mains = useSelector(selectMains)
     const isCurrentModalVisible = useSelector(isModalVisible)
 
+    const isLoading = useSelector(state => state.burgerIngredient.isLoading)
+
     useEffect(function () {
         dispatch(getIngredients())
     }, [dispatch])
@@ -57,39 +59,42 @@ const BurgerIngredients = () => {
                 Соберите бургер
             </h1>
             <MenuNavigation current={current} setCurrent={setCurrent} />
-            <div className={styles.menu__options} style={{ height: hasScroll ? '670px' : 'auto' }} ref={wrapper}>
-                <article id={'bun'} ref={refBun}>
-                    <h2 className="text text_type_main-medium">Булки</h2>
-                    <ul className={styles.menu__item}>
-                        {buns.map((ingredient) => {
-                            return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
-                        })}
-                    </ul>
-                </article>
-                <article id={'sauce'} ref={refSauce}>
-                    <h2 className="text text_type_main-medium">Соусы</h2>
-                    <ul className={styles.menu__item}>
-                        {sauces.map((ingredient) => {
-                            return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
-                        })}
-                    </ul>
-                </article>
-                <article id={'main'} ref={refMain}>
-                    <h2 className="text text_type_main-medium">Начинки</h2>
-                    <ul className={styles.menu__item}>
-                        {mains.map((ingredient) => {
-                            return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
-                        })}
-                    </ul>
-                </article>
-                {isCurrentModalVisible &&
-                    <div>
-                        <Modal handleClick={handleCloseModal}>
-                            {<IngredientDetails />}
-                        </Modal>
-                    </div>
-                }
-            </div>
+            {isLoading
+                ? <h1 className="text text_type_main-large">Loading...</h1>
+                : <div className={styles.menu__options} style={{ height: hasScroll ? '670px' : 'auto' }} ref={wrapper}>
+                    <article id={'bun'} ref={refBun}>
+                        <h2 className="text text_type_main-medium">Булки</h2>
+                        <ul className={styles.menu__item}>
+                            {buns.map((ingredient) => {
+                                return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
+                            })}
+                        </ul>
+                    </article>
+                    <article id={'sauce'} ref={refSauce}>
+                        <h2 className="text text_type_main-medium">Соусы</h2>
+                        <ul className={styles.menu__item}>
+                            {sauces.map((ingredient) => {
+                                return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
+                            })}
+                        </ul>
+                    </article>
+                    <article id={'main'} ref={refMain}>
+                        <h2 className="text text_type_main-medium">Начинки</h2>
+                        <ul className={`${styles.menu__item} ${styles.menu__item_type_last}`}>
+                            {mains.map((ingredient) => {
+                                return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
+                            })}
+                        </ul>
+                    </article>
+                    {isCurrentModalVisible &&
+                        <div>
+                            <Modal handleClick={handleCloseModal}>
+                                {<IngredientDetails />}
+                            </Modal>
+                        </div>
+                    }
+                </div>
+            }
         </section>
     );
 };

@@ -1,16 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
-import { BASE_URL } from '../../API/Burgers'
+import { axiosInstance } from '../../API/Burgers'
 const initialState = {
     ingredients: [],
-    currentIngredient: null
+    currentIngredient: null,
+    isLoading: false,
 }
 
 export const getIngredients = createAsyncThunk(
     'burgerIngredient/get',
     async (_, { rejectWithValue, dispatch }) => {
-        const res = await axios.get(BASE_URL + 'ingredients');
-        dispatch(setIngredients(res.data))
+        const res = await axiosInstance.get('ingredients');
+        return res.data;
     }
 )
 
@@ -29,9 +29,17 @@ export const burgerIngredientSlice = createSlice({
         }
     },
     extraReducers: {
-        [getIngredients.fulfilled]: () => console.log('fulfiled'),
-        [getIngredients.pending]: () => console.log('pending'),
-        [getIngredients.rejected]: () => console.log('rejected')
+        [getIngredients.fulfilled]: (state, action) => {
+            state.ingredients = action.payload.data;
+            state.isLoading = false;
+        },
+        [getIngredients.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [getIngredients.rejected]: (state) => {
+            state.isLoading = false;
+            alert('Ошибка запроса')
+        }
     }
 })
 

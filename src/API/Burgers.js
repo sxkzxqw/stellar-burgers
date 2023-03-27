@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const BASE_URL = 'https://norma.nomoreparties.space/api/';
 
 const config = {
@@ -21,3 +23,7 @@ const config = {
 }
 
 export default new GetApi(config);
+
+export const axiosInstance = axios.create({
+    baseURL: 'https://norma.nomoreparties.space/api/'
+})
