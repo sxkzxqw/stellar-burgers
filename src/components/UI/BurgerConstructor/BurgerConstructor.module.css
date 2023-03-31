@@ -1,3 +1,26 @@
+@keyframes hover {
+    0% {
+        box-shadow: 0px 0px 7px 3px rgba(223, 70, 231, 0.2);
+    }
+
+    25% {
+        box-shadow: 0px 0px 7px 3px rgba(223, 70, 231, 1);
+    }
+
+    50% {
+        box-shadow: 0px 0px 7px 3px rgba(223, 70, 231, 0.2);
+    }
+
+    75% {
+        box-shadow: 0px 0px 7px 3px rgba(223, 70, 231, 1);
+    }
+
+    100% {
+        box-shadow: 0px 0px 7px 3px rgba(223, 70, 231, 0.2);
+    }
+}
+
+
 .basket {
     max-width: 600px;
     width: 100%;
@@ -46,4 +69,8 @@
     flex-direction: column;
     margin-top: 16px;
     padding-left: 42px;
+}
+
+.hoverHandler {
+    animation: hover 2.5s ease infinite;
 }

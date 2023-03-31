@@ -76,6 +76,7 @@ const BurgerConstructor = (props) => {
                 {(bun != null)
                     ? <ConstructorElement
                         {...bun}
+                        extraClass={`${isHover ? styles.hoverHandler : ''}`}
                         type='top'
                         isLocked={true}
                         text={`${bun.name} (вверх)`}
@@ -83,6 +84,7 @@ const BurgerConstructor = (props) => {
                         thumbnail={bun.image}
                     />
                     : <ConstructorElement
+                        extraClass={`${isHover ? styles.hoverHandler : ''}`}
                         text='Выберите булку'
                         type='top'
                         isLocked={true}
@@ -90,10 +92,11 @@ const BurgerConstructor = (props) => {
                     />
                 }
             </div>
-            <ul className={`${styles.order__list} custom-scroll`} style={{paddingRight: scrollbarShow ? '0px' : '8px'}}>
+            <ul className={`${styles.order__list} custom-scroll`} style={{ paddingRight: scrollbarShow ? '0px' : '8px' }}>
                 {ingredients?.map((ingredient, index) => {
                     return (
                         <ConstructorElementTemplate
+                            isHover={isHover}
                             ingredient={ingredient}
                             removeFunction={removeElement}
                             key={ingredient.uuid}
@@ -108,6 +111,7 @@ const BurgerConstructor = (props) => {
                 {(bun != null)
                     ? <ConstructorElement
                         {...bun}
+                        extraClass={`${isHover ? styles.hoverHandler : ''}`}
                         type="bottom"
                         isLocked={true}
                         text={`${bun.name} (низ)`}
@@ -115,6 +119,7 @@ const BurgerConstructor = (props) => {
                         thumbnail={bun.image}
                     />
                     : <ConstructorElement
+                        extraClass={`${isHover ? styles.hoverHandler : ''}`}
                         text='Выберите булку'
                         type='bottom'
                         isLocked={true}
@@ -130,10 +135,10 @@ const BurgerConstructor = (props) => {
                 {ingredients == false || bun == null
                     ? <Button htmlType="button" type="primary" size="medium" onClick={setModalState} disabled>
                         Оформить заказ
-                       </Button>
+                    </Button>
                     : <Button htmlType="button" type="primary" size="medium" onClick={setModalState}>
                         Оформить заказ
-                       </Button>
+                    </Button>
                 }
             </div>
             {!!modal &&
