@@ -1,22 +1,22 @@
 @keyframes hover {
     0% {
-        box-shadow: 0px 0px 7px 3px rgba(223, 70, 231, 0.2);
+        box-shadow: 0px 0px 6px 3px rgba(223, 70, 231, 0.2);
     }
 
     25% {
-        box-shadow: 0px 0px 7px 3px rgba(223, 70, 231, 1);
+        box-shadow: 0px 0px 6px 3px rgba(223, 70, 231, 1);
     }
 
     50% {
-        box-shadow: 0px 0px 7px 3px rgba(223, 70, 231, 0.2);
+        box-shadow: 0px 0px 6px 3px rgba(223, 70, 231, 0.2);
     }
 
     75% {
-        box-shadow: 0px 0px 7px 3px rgba(223, 70, 231, 1);
+        box-shadow: 0px 0px 6px 3px rgba(223, 70, 231, 1);
     }
 
     100% {
-        box-shadow: 0px 0px 7px 3px rgba(223, 70, 231, 0.2);
+        box-shadow: 0px 0px 6px 3px rgba(223, 70, 231, 0.2);
     }
 }
 
@@ -52,14 +52,15 @@
     flex-direction: column;
     gap: 16px;
     overflow-y: auto;
-    max-height: 464px;
+    max-height: 454px;
+    box-sizing: border-box;
+    padding: 16px 0;
 }
 
 .buns {
     display: flex;
     gap: 16px;
     flex-direction: column;
-    margin-bottom: 16px;
     padding-left: 42px;
 }
 
@@ -67,7 +68,6 @@
     display: flex;
     gap: 16px;
     flex-direction: column;
-    margin-top: 16px;
     padding-left: 42px;
 }
 

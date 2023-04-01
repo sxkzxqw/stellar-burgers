@@ -68,11 +68,11 @@ const BurgerConstructor = (props) => {
         dispatch(sendOrder(requestBody))
     }
 
-    const scrollbarShow = Boolean(ingredients.length > 5);
+    const scrollbarShow = Boolean(ingredients.length > 4);
 
     return (
         <section className={styles.basket} ref={dropTarget}>
-            <div className={styles.buns}>
+            <div className={styles.buns} style={{ marginBottom: scrollbarShow ? '16px' : '0px' }}>
                 {(bun != null)
                     ? <ConstructorElement
                         {...bun}
@@ -92,7 +92,7 @@ const BurgerConstructor = (props) => {
                     />
                 }
             </div>
-            <ul className={`${styles.order__list} custom-scroll`} style={{ paddingRight: scrollbarShow ? '0px' : '8px' }}>
+            <ul className={`${styles.order__list} custom-scroll`} style={{ paddingRight: scrollbarShow ? '0px' : '8px', paddingBottom: scrollbarShow ? '0px' : '16px', paddingTop: scrollbarShow ? '0px' : '16px' }}>
                 {ingredients?.map((ingredient, index) => {
                     return (
                         <ConstructorElementTemplate
@@ -107,7 +107,7 @@ const BurgerConstructor = (props) => {
                 })}
                 {children}
             </ul>
-            <div className={styles.buns_type_bottom}>
+            <div className={styles.buns_type_bottom} style={{ marginTop: scrollbarShow ? '16px' : '0px' }}>
                 {(bun != null)
                     ? <ConstructorElement
                         {...bun}
