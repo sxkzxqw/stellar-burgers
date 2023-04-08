@@ -10,24 +10,22 @@ import styles from './BurgerIngredients.module.css';
 import MenuNavigation from './MenuNavigation/MenuNavigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { isModalVisible, selectBuns, selectMains, selectSauces } from '../../../services/features/selectors/burgerIngredientsselectors';
+import { Routes, useNavigate } from 'react-router-dom';
 
 const BurgerIngredients = () => {
 
     const dispatch = useDispatch()
-
     const buns = useSelector(selectBuns)
     const sauces = useSelector(selectSauces)
     const mains = useSelector(selectMains)
     const isCurrentModalVisible = useSelector(isModalVisible)
+    const navigate = useNavigate()
 
     const isLoading = useSelector(state => state.burgerIngredient.isLoading)
 
-    useEffect(function () {
-        dispatch(getIngredients())
-    }, [dispatch])
-
     function handleCloseModal() {
         dispatch(clearCurrentIngredient())
+        navigate('/', { replace: true })
     }
 
     const hasScroll = buns.length > 0;
@@ -60,7 +58,7 @@ const BurgerIngredients = () => {
             </h1>
             <MenuNavigation current={current} setCurrent={setCurrent} />
             {isLoading
-                ? <h1 className="text text_type_main-large">Loading...</h1>
+                ? <h1 className={`${styles.loaderText} text text_type_main-large`}>Loading...</h1>
                 : <div className={styles.menu__options} style={{ height: hasScroll ? '670px' : 'auto' }} ref={wrapper}>
                     <article id={'bun'} ref={refBun}>
                         <h2 className="text text_type_main-medium">Булки</h2>
@@ -86,13 +84,11 @@ const BurgerIngredients = () => {
                             })}
                         </ul>
                     </article>
-                    {isCurrentModalVisible &&
-                        <div>
-                            <Modal handleClick={handleCloseModal}>
-                                {<IngredientDetails />}
-                            </Modal>
-                        </div>
-                    }
+                    {/*                     {isCurrentModalVisible &&
+                        <Modal handleClick={handleCloseModal}>
+                            {<IngredientDetails />}
+                        </Modal>
+                    } */}
                 </div>
             }
         </section>

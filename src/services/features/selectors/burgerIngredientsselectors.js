@@ -1,4 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { sliceName } from '../UserSlice.js';
 
 export const selectBuns = (state) => state.burgerIngredient.ingredients?.filter(ingredient => ingredient.type === 'bun');
 
@@ -9,3 +10,7 @@ export const selectMains = (state) => state.burgerIngredient.ingredients?.filter
 export const isModalVisible = (state) => Boolean(state.burgerIngredient.currentIngredient);
 
 export const selectCurrentIngredient = (state) => state.burgerIngredient.currentIngredient;
+
+export const getUser = (state) => state[sliceName]?.data;
+
+export const getIsAuthChecked = store => store[sliceName]?.isAuthChecked;

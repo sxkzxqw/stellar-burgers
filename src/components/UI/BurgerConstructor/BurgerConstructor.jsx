@@ -6,7 +6,7 @@ import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import styles from './BurgerConstructor.module.css';
 import { useDrop } from 'react-dnd';
-import { addConstructorElement, removeConstructorElement } from '../../../services/features/BurgerConstructorSlice';
+import { addConstructorElement, clearElements, removeConstructorElement } from '../../../services/features/BurgerConstructorSlice';
 import { sendOrder, setOrderDetails } from '../../../services/features/OrderSlice';
 import ConstructorElementTemplate from '../ConstructorElementTemplate/ConstructorElementTemplate';
 
@@ -66,6 +66,7 @@ const BurgerConstructor = (props) => {
         })
         requestBody.push(bunsRequestFormat);
         dispatch(sendOrder(requestBody))
+        dispatch(clearElements())
     }
 
     const scrollbarShow = Boolean(ingredients.length > 4);
