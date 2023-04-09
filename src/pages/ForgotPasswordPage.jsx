@@ -17,11 +17,10 @@ const ForgotPasswordPage = () => {
     const onSubmit = (requsetBody) => {
         dispatch(resetPasswordEmail(requsetBody))
         if (!isRequestSuccess) {
-            navigate('/reset-password')
+            navigate('/reset-password', { state: { fromForgotPassword: true } })
         }
     }
     const isSendAvailable = Boolean(value.email.length > 0 && value.email.includes('@'))
-
     return (
         <section className={styles.content}>
             <form className={styles.container} onSubmit={(e) => {

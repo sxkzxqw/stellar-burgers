@@ -33,12 +33,14 @@ function App() {
     dispatch(clearCurrentIngredient())
     navigate(background.pathname || "/", { replace: true })
   }
+  const isFromForgotPassword = location.state?.fromForgotPassword;
 
   return (
     <div className="App">
       <AppHeader />
       <Routes location={background || location}>
         <Route path='/' element={<HomePage />} />
+        <Route path='/stellar-burgers' element={<HomePage />} />
         <Route path='login' element={<ProtectedRoute onlyUnAuth>
           <LoginPage />
         </ProtectedRoute>} />
@@ -48,9 +50,16 @@ function App() {
         <Route path='forgot-password' element={<ProtectedRoute onlyUnAuth>
           <ForgotPasswordPage />
         </ProtectedRoute>} />
-        <Route path='reset-password' element={<ProtectedRoute onlyUnAuth>
-          <ResetPasswordPage />
-        </ProtectedRoute>} />
+        {isFromForgotPassword && (
+          <Route
+            path="/reset-password"
+            element={
+              <ProtectedRoute onlyUnAuth>
+                <ResetPasswordPage />
+              </ProtectedRoute>
+            }
+          />
+        )}
         <Route path='profile' element={
           <ProtectedRoute>
             <ProfilePage />
