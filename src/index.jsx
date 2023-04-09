@@ -6,6 +6,7 @@ import Favicon from 'react-favicon';
 import App from './components/UI/App/App';
 import { store } from './services/store';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,9 @@ root.render(
   <>
     <Favicon url='https://cdn.onlinewebfonts.com/svg/download_477971.png' />
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </>
   // </React.StrictMode>

@@ -14,11 +14,11 @@ export const burgerConstructorSlice = createSlice({
             if (action.payload.type === 'bun') {
                 state.bun = action.payload;
             } else if (action.payload.type === 'sauce' || action.payload.type === 'main') {
-                state.ingredients.push({...action.payload, uuid: uuidv4() });
+                state.ingredients.push({ ...action.payload, uuid: uuidv4() });
             }
         },
         removeConstructorElement: (state, action) => {
-                state.ingredients = state.ingredients.filter((ingredient) => ingredient.uuid != action.payload)
+            state.ingredients = state.ingredients.filter((ingredient) => ingredient.uuid != action.payload)
         },
         moveElement: (state, action) => {
             let res = []
@@ -45,6 +45,10 @@ export const burgerConstructorSlice = createSlice({
                 bun: state.bun,
                 ingredients: res
             }
+        },
+        clearElements: (state) => {
+            state.bun = null
+            state.ingredients = []
         }
     }
 })
@@ -59,5 +63,5 @@ export const selectCountState = createSelector(
     }
 )
 
-export const {addConstructorElement, removeConstructorElement, moveElement} = burgerConstructorSlice.actions;
+export const { addConstructorElement, removeConstructorElement, moveElement, clearElements } = burgerConstructorSlice.actions;
 export default burgerConstructorSlice.reducer;

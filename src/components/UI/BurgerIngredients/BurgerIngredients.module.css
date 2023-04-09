@@ -45,3 +45,8 @@
     box-shadow: inset 0px -1px 0px #2F2F37;
     cursor: pointer;
 }
+
+.loaderText {
+    margin-left: 20px;
+    margin-top: 20px;
+}

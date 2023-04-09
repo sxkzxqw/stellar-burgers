@@ -6,9 +6,10 @@ import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import styles from './BurgerConstructor.module.css';
 import { useDrop } from 'react-dnd';
-import { addConstructorElement, removeConstructorElement } from '../../../services/features/BurgerConstructorSlice';
+import { addConstructorElement, clearElements, removeConstructorElement } from '../../../services/features/BurgerConstructorSlice';
 import { sendOrder, setOrderDetails } from '../../../services/features/OrderSlice';
 import ConstructorElementTemplate from '../ConstructorElementTemplate/ConstructorElementTemplate';
+import { useNavigate } from 'react-router-dom';
 
 
 const modalRoot = document.getElementById('modal');
@@ -16,6 +17,7 @@ const modalRoot = document.getElementById('modal');
 const BurgerConstructor = (props) => {
 
     const [modal, setModal] = useState(null);
+    const navigate = useNavigate()
 
 
     const bun = useSelector(state => state.burgerConstructor.bun)
@@ -25,9 +27,14 @@ const BurgerConstructor = (props) => {
         setModal(null)
     }
 
+    const isAuth = useSelector(state => state.rootReducer?.user?.data)
     function setModalState(state) {
-        sendRequest()
-        setModal(state)
+        if (isAuth != null) {
+            sendRequest()
+            setModal(state)
+        } else {
+            navigate('/login', { replace: true })
+        }
     }
 
     const dispatch = useDispatch()
@@ -66,6 +73,7 @@ const BurgerConstructor = (props) => {
         })
         requestBody.push(bunsRequestFormat);
         dispatch(sendOrder(requestBody))
+        dispatch(clearElements())
     }
 
     const scrollbarShow = Boolean(ingredients.length > 4);
