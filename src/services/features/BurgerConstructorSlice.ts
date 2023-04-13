@@ -1,10 +1,10 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid';
 import { TIngredientType } from '../../utils/types/types';
 
 type TState = {
     bun: null | TIngredientType
-    ingredients: Array<TIngredientType> | null | undefined | []
+    ingredients: Array<TIngredientType>
 }
 
 const initialState: TState = {
@@ -16,7 +16,7 @@ export const burgerConstructorSlice = createSlice({
     name: 'burgerConstructor',
     initialState,
     reducers: {
-        addConstructorElement: (state, action) => {
+        addConstructorElement: (state, action: PayloadAction<Object>) => {
             if (action.payload.type === 'bun') {
                 state.bun = action.payload;
             } else if (action.payload.type === 'sauce' || action.payload.type === 'main') {
@@ -27,7 +27,7 @@ export const burgerConstructorSlice = createSlice({
             state.ingredients = state?.ingredients?.filter((ingredient) => ingredient.uuid != action.payload)
         },
         moveElement: (state, action) => {
-            let res: Array<null> | Array<TIngredientType> = []
+            let res: Array<TIngredientType> = []
             let start = action.payload[0]
             let end = action.payload[1]
             if (start === end) {

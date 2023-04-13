@@ -9,7 +9,7 @@ const MenuNavigation: FC<TMenuNavigation> = ({ current, setCurrent }) => {
 
   const changeActiveIngredient = (id: string) => {
     setCurrent(id);
-    document.querySelector(`#${id}`).scrollIntoView({ behavior: 'smooth' });
+    document?.querySelector(`#${id}`)?.scrollIntoView({ behavior: 'smooth' });
   }
 
   return (

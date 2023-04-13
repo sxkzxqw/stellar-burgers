@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { Dispatch, ReactNode } from "react"
 
 export type TIngredientType = {
     __v: number,
@@ -73,7 +73,7 @@ export type TConstructorElementTemplate = {
 
 export type TMenuNavigation = {
     current: string,
-    setCurrent: () => string,
+    setCurrent: Dispatch<string>,
 }
 
 export type TProtectedRoute = {
