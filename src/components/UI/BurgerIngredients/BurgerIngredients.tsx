@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isModalVisible, selectBuns, selectMains, selectSauces } from '../../../services/features/selectors/burgerIngredientsselectors';
 import { Routes, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
+import { TIngredientType } from '../../../utils/types/types';
 
 const BurgerIngredients = () => {
 
@@ -64,7 +65,7 @@ const BurgerIngredients = () => {
                     <article id={'bun'} ref={refBun}>
                         <h2 className="text text_type_main-medium">Булки</h2>
                         <ul className={styles.menu__item}>
-                            {buns.map((ingredient) => {
+                            {buns.map((ingredient: TIngredientType) => {
                                 return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
                             })}
                         </ul>
@@ -72,7 +73,7 @@ const BurgerIngredients = () => {
                     <article id={'sauce'} ref={refSauce}>
                         <h2 className="text text_type_main-medium">Соусы</h2>
                         <ul className={styles.menu__item}>
-                            {sauces.map((ingredient) => {
+                            {sauces.map((ingredient: TIngredientType) => {
                                 return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
                             })}
                         </ul>
@@ -80,16 +81,11 @@ const BurgerIngredients = () => {
                     <article id={'main'} ref={refMain}>
                         <h2 className="text text_type_main-medium">Начинки</h2>
                         <ul className={`${styles.menu__item} ${styles.menu__item_type_last}`}>
-                            {mains.map((ingredient) => {
+                            {mains.map((ingredient: TIngredientType) => {
                                 return <IngredientTemplate ingredient={ingredient} key={ingredient._id} />;
                             })}
                         </ul>
                     </article>
-                    {/*                     {isCurrentModalVisible &&
-                        <Modal handleClick={handleCloseModal}>
-                            {<IngredientDetails />}
-                        </Modal>
-                    } */}
                 </div>
             }
         </section>

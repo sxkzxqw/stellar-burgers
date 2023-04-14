@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
 
 const modalRoot = document.getElementById('modal');
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
 
     const [modal, setModal] = useState(null);
     const navigate = useNavigate()
@@ -29,7 +29,7 @@ const BurgerConstructor = (props) => {
     }
 
     const isAuth = useAppSelector(state => state.rootReducer?.user?.data)
-    function setModalState(state) {
+    function setModalState(state: any) {
         if (isAuth != null) {
             sendRequest()
             setModal(state)
@@ -54,8 +54,6 @@ const BurgerConstructor = (props) => {
         })
     })
 
-    const { children } = props;
-
     const summa = useMemo(() => {
         let sum = 0;
         sum += bun ? bun?.price * 2 : 0
@@ -67,7 +65,7 @@ const BurgerConstructor = (props) => {
 
     const sendRequest = () => {
         const requestBody = []
-        const bunsRequestFormat = bun._id
+        const bunsRequestFormat = bun?._id
         requestBody.push(bunsRequestFormat);
         ingredients.forEach((ingredient) => {
             requestBody.push(ingredient._id)
@@ -98,6 +96,7 @@ const BurgerConstructor = (props) => {
                         type='top'
                         isLocked={true}
                         thumbnail='https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg'
+                        price={0}
                     />
                 }
             </div>
@@ -114,7 +113,6 @@ const BurgerConstructor = (props) => {
                         />
                     )
                 })}
-                {children}
             </ul>
             <div className={styles.buns_type_bottom} style={{ marginTop: scrollbarShow ? '16px' : '0px' }}>
                 {(bun != null)
@@ -133,6 +131,7 @@ const BurgerConstructor = (props) => {
                         type='bottom'
                         isLocked={true}
                         thumbnail='https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg'
+                        price={0}
                     />
                 }
             </div>
@@ -141,7 +140,7 @@ const BurgerConstructor = (props) => {
                     <p className='text text_type_digits-medium'>{summa}</p>
                     <CurrencyIcon type='primary' />
                 </div>
-                {ingredients == false || bun == null
+                {ingredients.length == 0 || bun == null
                     ? <Button htmlType="button" type="primary" size="medium" onClick={setModalState} disabled>
                         Оформить заказ
                     </Button>

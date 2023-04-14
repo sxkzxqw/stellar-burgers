@@ -13,7 +13,7 @@ const ConstructorElementTemplate: FC<TConstructorElementTemplate> = ({ ingredien
   const ref = useRef(null)
   const dispatch = useDispatch()
 
-  const moveCard = (start: number[], end: number[]) => {
+  const moveCard = (start: number | undefined, end: number | undefined) => {
     let startAndEnd = []
     startAndEnd.push(start)
     startAndEnd.push(end)
@@ -27,7 +27,7 @@ const ConstructorElementTemplate: FC<TConstructorElementTemplate> = ({ ingredien
         handlerId: monitor.getHandlerId()
       }
     },
-    hover(item, monitor) {
+    hover(item: any, monitor) {
       if (!ref.current) {
         return
       }
@@ -40,7 +40,7 @@ const ConstructorElementTemplate: FC<TConstructorElementTemplate> = ({ ingredien
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
       const clientOffset = monitor.getClientOffset()
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top
+      const hoverClientY = clientOffset?.y - hoverBoundingRect.top
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return
       }

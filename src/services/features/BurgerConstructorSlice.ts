@@ -1,6 +1,7 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid';
 import { TIngredientType } from '../../utils/types/types';
+import { useAppSelector } from '../../utils/types/hook';
 
 type TState = {
     bun: null | TIngredientType
@@ -16,7 +17,7 @@ export const burgerConstructorSlice = createSlice({
     name: 'burgerConstructor',
     initialState,
     reducers: {
-        addConstructorElement: (state, action: PayloadAction<Object>) => {
+        addConstructorElement: (state, action) => {
             if (action.payload.type === 'bun') {
                 state.bun = action.payload;
             } else if (action.payload.type === 'sauce' || action.payload.type === 'main') {
@@ -35,7 +36,7 @@ export const burgerConstructorSlice = createSlice({
             } else if (start > end) {
                 res = [
                     ...state?.ingredients?.slice(0, end),
-                    state?.ingredients ? [start],
+                    state?.ingredients[start],
                     ...state?.ingredients?.slice(end, start),
                     ...state?.ingredients?.slice(start + 1)
                 ];
@@ -59,8 +60,8 @@ export const burgerConstructorSlice = createSlice({
     }
 })
 
-const buns = (state) => state.burgerConstructor.bun
-const items = (state) => state.burgerConstructor.ingredients
+const buns = (state: any) => state.burgerConstructor.bun
+const items = (state: any) => state.burgerConstructor.ingredients
 
 export const selectCountState = createSelector(
     [items, buns, (items, id) => id],

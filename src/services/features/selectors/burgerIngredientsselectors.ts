@@ -1,16 +1,16 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { sliceName } from '../UserSlice.js';
 
-export const selectBuns = (state) => state.burgerIngredient.ingredients?.filter(ingredient => ingredient.type === 'bun');
+export const selectBuns = (state: any) => state.burgerIngredient.ingredients?.filter(ingredient => ingredient.type === 'bun');
 
-export const selectSauces = (state) => state.burgerIngredient.ingredients?.filter(ingredient => ingredient.type === 'sauce');
+export const selectSauces = (state: any) => state.burgerIngredient.ingredients?.filter(ingredient => ingredient.type === 'sauce');
 
-export const selectMains = (state) => state.burgerIngredient.ingredients?.filter(ingredient => ingredient.type === 'main');
+export const selectMains = (state: any) => state.burgerIngredient.ingredients?.filter(ingredient => ingredient.type === 'main');
 
-export const isModalVisible = (state) => Boolean(state.burgerIngredient.currentIngredient);
+export const isModalVisible = (state: any) => Boolean(state.burgerIngredient.currentIngredient);
 
-export const selectCurrentIngredient = (state) => state.burgerIngredient.currentIngredient;
+export const selectCurrentIngredient = (state: any) => state.burgerIngredient.currentIngredient;
 
-export const getUser = (state) => state[sliceName]?.data;
+export const getUser = (state: any) => state[sliceName]?.data;
 
-export const getIsAuthChecked = store => store[sliceName]?.isAuthChecked;
+export const getIsAuthChecked = (store: any) => store[sliceName]?.isAuthChecked;

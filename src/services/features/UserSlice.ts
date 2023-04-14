@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getActionName, isActionPending, isActionRejected, isActionSuccess } from '../../utils/action-utils.js';
 import { deleteCookie, setCookie } from '../../API/cookies';
 import { ThunkAPI } from '../store.js';
+import { IUser, IUserReq } from '../../API/burger-api.js';
 export const sliceName = 'user';
 
 type TUserState = {
@@ -60,7 +61,7 @@ const initialState: TUserState = {
     resetPasswordNewRequest: false,
 }
 
-export const checkUserAuth = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/checkUserAuth`,
+export const checkUserAuth = createAsyncThunk<any, any, ThunkAPI>(`${sliceName}/checkUserAuth`,
     async (_, { extra: api, rejectWithValue, dispatch }) => {
         try {
             const data = await api.getUser();
@@ -80,8 +81,8 @@ export const checkUserAuth = createAsyncThunk<any, object, ThunkAPI>(`${sliceNam
 
 
 
-export const registerUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/registerUser`,
-    async (dataUser, { extra: api, rejectWithValue }) => {
+export const registerUser = createAsyncThunk<any, IUserReq, ThunkAPI>(`${sliceName}/registerUser`,
+    async (dataUser: IUserReq, { extra: api, rejectWithValue }) => {
         const data = await api.registerUser(dataUser);
         console.log('responce', data);
         if (!data?.success) {
@@ -94,15 +95,15 @@ export const registerUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceName
 );
 
 
-export const loginUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/loginUser`,
-    async (dataUser, { extra: api, rejectWithValue }) => {
+export const loginUser = createAsyncThunk<any, IUserReq, ThunkAPI>(`${sliceName}/loginUser`,
+    async (dataUser: IUserReq, { extra: api, rejectWithValue }) => {
         const data = await api.loginUser(dataUser);
         console.log('responce', data);
         if (!data?.success) {
             return rejectWithValue(data)
         }
         setCookie('accessToken', data.accessToken);
-        setCookie('refreshToken', data.refreshToken)
+        setCookie('refreshToken', data.refreshToken);
         return data.user;
     }
 );
@@ -190,11 +191,11 @@ const user = createSlice({
             .addCase(resetPasswordNew.fulfilled, (state, action) => {
                 state.resetPasswordNewRequest = false
             })
-            .addMatcher(isActionPending, (state, action) => {
+            .addMatcher(isActionPending, (state: { [key: string]: unknown }, action) => {
                 state[`${getActionName(action.type)}Request`] = true;
                 state[`${getActionName(action.type)}Error`] = null;
             })
-            .addMatcher(isActionRejected, (state, action) => {
+            .addMatcher(isActionRejected, (state: { [key: string]: unknown }, action) => {
                 state[`${getActionName(action.type)}Error`] = action.payload;
                 state[`${getActionName(action.type)}Request`] = false;
             })

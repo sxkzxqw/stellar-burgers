@@ -32,7 +32,7 @@ export const burgerIngredientSlice = createSlice({
         setCurrentIngredient: (state, action) => {
             state.currentIngredient = state.ingredients.find((ingredient) => ingredient._id === action.payload)
         },
-        clearCurrentIngredient: (state, action) => {
+        clearCurrentIngredient: (state) => {
             state.currentIngredient = null;
         }
     },

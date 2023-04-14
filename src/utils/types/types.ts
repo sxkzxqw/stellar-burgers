@@ -65,9 +65,9 @@ export type TIsActionPending = {
 
 export type TConstructorElementTemplate = {
     ingredient: TIngredientType,
-    removeFunction: () => void,
-    id: string,
-    index: number,
+    removeFunction: (id: string) => void,
+    id: string | undefined,
+    index?: number,
     isHover: boolean
 }
 
