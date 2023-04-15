@@ -1,11 +1,12 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { sliceName } from '../UserSlice.js';
+import { sliceName } from '../UserSlice';
+import { TIngredientType } from "../../../utils/types/types";
 
-export const selectBuns = (state: any) => state.burgerIngredient.ingredients?.filter(ingredient => ingredient.type === 'bun');
+export const selectBuns = (state: any) => state.burgerIngredient.ingredients?.filter((ingredient: TIngredientType) => ingredient.type === 'bun');
 
-export const selectSauces = (state: any) => state.burgerIngredient.ingredients?.filter(ingredient => ingredient.type === 'sauce');
+export const selectSauces = (state: any) => state.burgerIngredient.ingredients?.filter((ingredient: TIngredientType) => ingredient.type === 'sauce');
 
-export const selectMains = (state: any) => state.burgerIngredient.ingredients?.filter(ingredient => ingredient.type === 'main');
+export const selectMains = (state: any) => state.burgerIngredient.ingredients?.filter((ingredient: TIngredientType) => ingredient.type === 'main');
 
 export const isModalVisible = (state: any) => Boolean(state.burgerIngredient.currentIngredient);
 

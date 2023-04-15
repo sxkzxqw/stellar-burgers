@@ -37,15 +37,16 @@ export const burgerIngredientSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getIngredients.fulfilled, (state, action) => {
-            state.ingredients = action.payload;
-            state.isLoading = false;
-        }).addCase(getIngredients.pending, (state) => {
-            state.isLoading = true;
-        }).addCase(getIngredients.rejected, (state) => {
-            state.isLoading = false;
-            alert('Ошибка запроса')
-        })
+        builder
+            .addCase(getIngredients.fulfilled, (state, action) => {
+                state.ingredients = action.payload.data;
+                state.isLoading = false;
+            }).addCase(getIngredients.pending, (state) => {
+                state.isLoading = true;
+            }).addCase(getIngredients.rejected, (state) => {
+                state.isLoading = false;
+                alert('Ошибка запроса')
+            })
     }
 })
 

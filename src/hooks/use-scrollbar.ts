@@ -3,9 +3,9 @@ import { OverlayScrollbars } from 'overlayscrollbars';
 
 const config = {};
 
-const useScrollbar = (root, hasScroll: boolean) => {
+const useScrollbar = (root: any, hasScroll: boolean) => {
     useEffect(() => {
-        let scrollbars;
+        let scrollbars: any;
 
         if (root.current && hasScroll) {
             scrollbars = OverlayScrollbars(root.current, config)

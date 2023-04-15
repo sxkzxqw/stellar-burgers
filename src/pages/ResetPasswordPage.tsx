@@ -16,7 +16,7 @@ const ResetPasswordPage = () => {
     })
 
     const requestBody = value
-    const onSubmit = (requestBody) => {
+    const onSubmit = (requestBody: any) => {
         dispatch(resetPasswordNew(requestBody))
     }
 

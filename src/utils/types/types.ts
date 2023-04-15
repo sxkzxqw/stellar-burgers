@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode } from "react"
+import { Dispatch, ReactNode, ReactElement } from "react"
 
 export type TIngredientType = {
     __v: number,
@@ -14,7 +14,7 @@ export type TIngredientType = {
     image_large: string,
     type: string,
     id?: string,
-    uuid?: string,
+    uuid?: string | undefined,
 }
 
 export type TTemplateIngredient = {
@@ -65,7 +65,7 @@ export type TIsActionPending = {
 
 export type TConstructorElementTemplate = {
     ingredient: TIngredientType,
-    removeFunction: (id: string) => void,
+    removeFunction: (uuid: string | undefined) => void,
     id: string | undefined,
     index?: number,
     isHover: boolean
@@ -77,6 +77,6 @@ export type TMenuNavigation = {
 }
 
 export type TProtectedRoute = {
-    children: ReactNode
     onlyUnAuth?: any,
+    children: ReactElement,
 }

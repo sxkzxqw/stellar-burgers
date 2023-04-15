@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCurrentIngredient } from '../../../services/features/selectors/burgerIngredientsselectors';
+/* import { selectCurrentIngredient } from '../../../services/features/selectors/burgerIngredientsselectors'; */
 import styles from './IngredientDetails.module.css';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';

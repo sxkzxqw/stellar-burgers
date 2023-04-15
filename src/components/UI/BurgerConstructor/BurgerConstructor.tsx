@@ -40,7 +40,7 @@ const BurgerConstructor = () => {
 
     const dispatch = useAppDispatch()
 
-    const removeElement = (uuid: string) => {
+    const removeElement = (uuid: string | undefined) => {
         dispatch(removeConstructorElement(uuid))
     }
 
@@ -61,7 +61,7 @@ const BurgerConstructor = () => {
             sum += ingredient.price;
         })
         return sum;
-    })
+    }, [bun, ingredients])
 
     const sendRequest = () => {
         const requestBody = []

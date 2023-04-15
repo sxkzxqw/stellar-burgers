@@ -16,7 +16,7 @@ const LoginPage = () => {
 
     const isLoginAvailable = Boolean(value.email.includes('@') && value.password.length > 5);
     const isUserLoginnedSuccessfully = useAppSelector(state => state?.rootReducer?.user?.data)
-    const onClickLogin = (data) => {
+    const onClickLogin = (data: any) => {
         dispatch(loginUser(data))
         if (isUserLoginnedSuccessfully) {
             navigate('/profile')
@@ -27,8 +27,8 @@ const LoginPage = () => {
         })
     }
 
-    const isLoading = useSelector((state) => state?.rootReducer?.user?.loginUserRequest)
-    const isError = useSelector((state) => state?.rootReducer?.user?.loginUserError)
+    const isLoading = useAppSelector((state) => state?.rootReducer?.user?.loginUserRequest)
+    const isError = useAppSelector((state) => state?.rootReducer?.user?.loginUserError)
 
     return (
         <section className={styles.content}>

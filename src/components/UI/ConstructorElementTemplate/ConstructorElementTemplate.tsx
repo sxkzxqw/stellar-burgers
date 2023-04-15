@@ -7,11 +7,12 @@ import { useDispatch } from 'react-redux';
 import { moveElement } from '../../../services/features/BurgerConstructorSlice';
 import PropTypes from 'prop-types';
 import { TConstructorElementTemplate } from '../../../utils/types/types';
+import { useAppDispatch } from '../../../utils/types/hook';
 
 
 const ConstructorElementTemplate: FC<TConstructorElementTemplate> = ({ ingredient, removeFunction, id, index, isHover }) => {
-  const ref = useRef(null)
-  const dispatch = useDispatch()
+  const ref: any = useRef(null)
+  const dispatch = useAppDispatch()
 
   const moveCard = (start: number | undefined, end: number | undefined) => {
     let startAndEnd = []
@@ -32,15 +33,15 @@ const ConstructorElementTemplate: FC<TConstructorElementTemplate> = ({ ingredien
         return
       }
       const dragIndex = item.index
-      const hoverIndex = index
+      const hoverIndex: any = index
       if (dragIndex === hoverIndex) {
         return
       }
       const hoverBoundingRect = ref.current?.getBoundingClientRect()
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-      const clientOffset = monitor.getClientOffset()
-      const hoverClientY = clientOffset?.y - hoverBoundingRect.top
+      const clientOffset: any = monitor.getClientOffset()
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return
       }

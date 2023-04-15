@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getActionName, isActionPending, isActionRejected, isActionSuccess } from '../../utils/action-utils.js';
+import { getActionName, isActionPending, isActionRejected, isActionSuccess } from '../../utils/action-utils';
 import { deleteCookie, setCookie } from '../../API/cookies';
-import { ThunkAPI } from '../store.js';
-import { IUser, IUserReq } from '../../API/burger-api.js';
+import { ThunkAPI } from '../store';
+import { IUser, IUserReq } from '../../API/burger-api';
 export const sliceName = 'user';
 
 type TUserState = {
@@ -61,8 +61,8 @@ const initialState: TUserState = {
     resetPasswordNewRequest: false,
 }
 
-export const checkUserAuth = createAsyncThunk<any, any, ThunkAPI>(`${sliceName}/checkUserAuth`,
-    async (_, { extra: api, rejectWithValue, dispatch }) => {
+export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
+    async (_, { extra: api, rejectWithValue, dispatch }: any) => {
         try {
             const data = await api.getUser();
             if (!data?.success) {

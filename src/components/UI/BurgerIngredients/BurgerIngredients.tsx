@@ -17,10 +17,10 @@ import { TIngredientType } from '../../../utils/types/types';
 const BurgerIngredients = () => {
 
     const dispatch = useAppDispatch()
-    const buns = useSelector(selectBuns)
-    const sauces = useSelector(selectSauces)
-    const mains = useSelector(selectMains)
-    const isCurrentModalVisible = useSelector(isModalVisible)
+    const buns = useAppSelector(selectBuns)
+    const sauces = useAppSelector(selectSauces)
+    const mains = useAppSelector(selectMains)
+    const isCurrentModalVisible = useAppSelector(isModalVisible)
     const navigate = useNavigate()
 
     const isLoading = useAppSelector(state => state.burgerIngredient.isLoading)

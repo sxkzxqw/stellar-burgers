@@ -4,7 +4,7 @@ import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-comp
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetPasswordEmail } from '../services/features/UserSlice';
-import { useAppDispatch } from '../utils/types/hook';
+import { useAppDispatch, useAppSelector } from '../utils/types/hook';
 
 const ForgotPasswordPage = () => {
     const dispatch = useAppDispatch()
@@ -14,8 +14,8 @@ const ForgotPasswordPage = () => {
         email: ''
     })
     const requsetBody = value;
-    const isRequestSuccess = useSelector(state => state?.rootReducer?.user?.resetPasswordEmailError)
-    const onSubmit = (requsetBody) => {
+    const isRequestSuccess = useAppSelector(state => state?.rootReducer?.user?.resetPasswordEmailError)
+    const onSubmit = (requsetBody: object) => {
         dispatch(resetPasswordEmail(requsetBody))
         if (!isRequestSuccess) {
             navigate('/reset-password', { state: { fromForgotPassword: true } })

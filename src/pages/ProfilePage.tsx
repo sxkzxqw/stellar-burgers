@@ -5,12 +5,12 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser, updateInfoUser } from '../services/features/UserSlice';
 import { getCookie } from '../API/cookies';
-import { useAppSelector } from '../utils/types/hook';
+import { useAppDispatch, useAppSelector } from '../utils/types/hook';
 
 const ProfilePage = () => {
-    const dispatch = useDispatch()
-    const mail = useAppSelector(state => state?.rootReducer?.user?.data.email)
-    const name = useAppSelector(state => state?.rootReducer?.user?.data.name)
+    const dispatch = useAppDispatch()
+    const mail = useAppSelector(state => state?.rootReducer?.user?.data?.email)
+    const name = useAppSelector(state => state?.rootReducer?.user?.data?.name)
     const [value, setValue] = React.useState({
         name: name,
         email: mail,
@@ -25,11 +25,11 @@ const ProfilePage = () => {
         'token': token
     }
 
-    const logout = (RequestBody) => {
+    const logout = (RequestBody: any) => {
         dispatch(logoutUser(RequestBody))
     }
 
-    const changeValue = (RequestBody) => {
+    const changeValue = (RequestBody: any) => {
         dispatch(updateInfoUser(RequestBody))
     }
 
@@ -79,7 +79,7 @@ const ProfilePage = () => {
                     type={'text'}
                     placeholder={'Имя'}
                     onChange={(evt) => setValue({ ...value, name: evt.target.value })}
-                    value={value.name}
+                    value={`${value.name}`}
                     name={'name'}
                     error={false}
                     errorText={'Ошибка'}
@@ -90,7 +90,7 @@ const ProfilePage = () => {
                     type={'email'}
                     placeholder={'Логин'}
                     onChange={(evt) => setValue({ ...value, email: evt.target.value })}
-                    value={value.email}
+                    value={`${value.email}`}
                     name={'email'}
                     icon="EditIcon"
                     extraClass="mt-6"

@@ -21,7 +21,7 @@ const initialState: TState = {
 
 export const sendOrder = createAsyncThunk(
     'order/post',
-    async (selectOrderDetails, { rejectWithValue, dispatch }) => {
+    async (selectOrderDetails: any, { rejectWithValue, dispatch }) => {
         const res = await axiosInstance.post('orders', {
             'ingredients': selectOrderDetails
         })

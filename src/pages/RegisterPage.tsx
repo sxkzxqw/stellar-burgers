@@ -14,7 +14,7 @@ const RegisterPage = () => {
         name: '',
     })
 
-    const registerCallBack = (value) => {
+    const registerCallBack = (value: any) => {
         dispatch(registerUser(value))
         setValue({
             email: '',
