@@ -14,7 +14,7 @@ root.render(
   <>
     <Favicon url='https://cdn.onlinewebfonts.com/svg/download_477971.png' />
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename='/stellar-burgers'>
         <App />
       </BrowserRouter>
     </Provider>

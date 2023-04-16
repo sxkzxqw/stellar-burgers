@@ -2,6 +2,7 @@ import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid';
 import { TIngredientType } from '../../utils/types/types';
 import { useAppSelector } from '../../utils/types/hook';
+import { RootState } from '../store';
 
 type TState = {
     bun: null | TIngredientType
@@ -60,8 +61,8 @@ export const burgerConstructorSlice = createSlice({
     }
 })
 
-const buns = (state: any) => state.burgerConstructor.bun
-const items = (state: any) => state.burgerConstructor.ingredients
+const buns = (state: RootState) => state.burgerConstructor.bun
+const items = (state: RootState) => state.burgerConstructor.ingredients
 
 export const selectCountState = createSelector(
     [items, buns, (items, id) => id],

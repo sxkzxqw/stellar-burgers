@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './pages.module.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const PageNotFound = () => {
     const navigate = useNavigate()
