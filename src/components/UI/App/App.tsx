@@ -41,7 +41,6 @@ function App() {
       <AppHeader />
       <Routes location={background || location}>
         <Route path='/' element={<HomePage />} />
-        <Route path='/stellar-burgers' element={<HomePage />} />
         <Route path='login' element={<ProtectedRoute onlyUnAuth>
           <LoginPage />
         </ProtectedRoute>} />
