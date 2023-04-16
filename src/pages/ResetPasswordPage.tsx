@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styles from './pages.module.css';
 import { Link, NavLink, Route, useNavigate } from 'react-router-dom';
 import { Button, EmailInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
 import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { resetPasswordNew } from '../services/features/UserSlice';
 import { useAppDispatch } from '../utils/types/hook';

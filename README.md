@@ -26,6 +26,9 @@
 * Работа с Api
 * Axios
 * Typescript
+* Websockets
+* Cookie / Local storage
+* Authorization
 * React Router DOM
 * Работа с компонентами библиотеки
 * React Hooks

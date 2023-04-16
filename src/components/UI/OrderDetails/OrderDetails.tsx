@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './OrderDetails.module.css';
 import doneImg from '../../../images/done.jpg';
-import { useSelector } from 'react-redux';
 import { useAppSelector } from '../../../utils/types/hook';
+
 
 const OrderDetails = () => {
     const orderNumber = useAppSelector(state => state.order.serverResponse)
