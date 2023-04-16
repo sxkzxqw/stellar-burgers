@@ -1,15 +1,15 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC } from 'react';
 import { useDrag } from 'react-dnd/dist/hooks';
-import { useDispatch, useSelector } from 'react-redux';
 import { selectCountState } from '../../../services/features/BurgerConstructorSlice';
 import { setCurrentIngredient } from '../../../services/features/BurgerIngredientsSlice';
 import styles from './IngredientTemplate.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import { TTemplateIngredient } from '../../../utils/types/types';
+import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
 
 const IngredientTemplate: FC<TTemplateIngredient> = ({ ingredient }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation()
     const id = ingredient._id;
     const [{ isDrag }, drag, dragPreview] = useDrag({
@@ -20,7 +20,7 @@ const IngredientTemplate: FC<TTemplateIngredient> = ({ ingredient }) => {
         })
     });
 
-    const counter = useSelector((state) => selectCountState(state, id))
+    const counter = useAppSelector((state) => selectCountState(state, id))
     return (
         <Link to={{ pathname: `ingredients/${ingredient._id}` }} state={{ background: location }} style={{ textDecoration: 'none', color: 'white' }} replace={true}>
             <li

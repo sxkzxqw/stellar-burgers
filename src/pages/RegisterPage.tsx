@@ -3,7 +3,6 @@ import styles from './pages.module.css';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { registerUser } from '../services/features/UserSlice';
-import { useDispatch } from 'react-redux';
 import { useAppDispatch } from '../utils/types/hook';
 
 const RegisterPage = () => {
@@ -25,7 +24,10 @@ const RegisterPage = () => {
     const isRegisterAvailabe = Boolean(value?.email.includes('@') && value.password.length > 5 && value.name !== '')
     return (
         <section className={styles.content}>
-            <form className={styles.container}>
+            <form className={styles.container} onSubmit={(e) => {
+                e.preventDefault()
+                registerCallBack(value)
+            }}>
                 <h2 className="text text_type_main-medium">Регистрация</h2>
                 <Input
                     type={'text'}
@@ -52,8 +54,8 @@ const RegisterPage = () => {
                     extraClass="mt-6"
                 />
                 {isRegisterAvailabe
-                    ? <Button type="primary" size="medium" htmlType="submit" extraClass="mt-6" onClick={() => { registerCallBack(value) }}>Зарегистрироваться</Button>
-                    : <Button type="primary" size="medium" htmlType="submit" extraClass="mt-6" onClick={() => { registerCallBack(value) }} disabled={true}>Зарегистрироваться</Button>
+                    ? <Button type="primary" size="medium" htmlType="submit" extraClass="mt-6">Зарегистрироваться</Button>
+                    : <Button type="primary" size="medium" htmlType="button" extraClass="mt-6" disabled={true}>Зарегистрироваться</Button>
                 }
                 <div className={`${styles.chooseContainer} mt-20`}>
                     <p className="text text_type_main-default text_color_inactive">Уже зарегистрированы?</p>

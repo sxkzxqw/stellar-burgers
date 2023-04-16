@@ -11,6 +11,7 @@ import { sendOrder, setOrderDetails } from '../../../services/features/OrderSlic
 import ConstructorElementTemplate from '../ConstructorElementTemplate/ConstructorElementTemplate';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
+import { RootState } from '../../../services/store';
 
 
 const modalRoot = document.getElementById('modal');

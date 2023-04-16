@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import styles from './pages.module.css';
 import { NavLink } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser, updateInfoUser } from '../services/features/UserSlice';
 import { getCookie } from '../API/cookies';
 import { useAppDispatch, useAppSelector } from '../utils/types/hook';
