@@ -17,6 +17,7 @@ import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ResetPasswordPage from '../../../pages/ResetPasswordPage';
 import { useAppDispatch } from '../../../utils/types/hook';
+import FeedPage from '../../../pages/FeedPage';
 function App() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -41,6 +42,7 @@ function App() {
       <AppHeader />
       <Routes location={background || location}>
         <Route path='/' element={<HomePage />} />
+        <Route path='/feed' element={<FeedPage />} />
         <Route path='login' element={<ProtectedRoute onlyUnAuth>
           <LoginPage />
         </ProtectedRoute>} />
