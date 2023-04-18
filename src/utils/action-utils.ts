@@ -15,3 +15,17 @@ export function isActionSuccess(action: TIsActionPending): boolean {
 export function getActionName(actionType: string): string {
     return actionType.split('/')[1];
 }
+
+export const WebsocketStatus = {
+    CONNECTING: 'CONNECTING...',
+    ONLINE: 'ONLINE',
+    OFFLINE: 'OFFLINE'
+}
+
+export const LiveTableActionType = {
+    DATA: 'data',
+    INSERT: 'insert',
+    DELETE: 'delete',
+    UPDATE: 'update',
+    MOVE: 'move',
+}

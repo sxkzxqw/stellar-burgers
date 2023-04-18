@@ -4,6 +4,20 @@ import burgerIngredientSlice from "./features/BurgerIngredientsSlice";
 import orderSlice from "./features/OrderSlice";
 import rootReducer from "./features";
 import burgerApi, { BurgerApi } from '../API/burger-api';
+import { socketMiddleware } from "./middleware/socket-middleware";
+import { wsConnect, wsDisconnect, wsConnecting, wsOpen, wsClose, wsError, wsMessage } from "./features/websocket/actions";
+
+const wsActions = {
+    wsConnect,
+    wsDisconnect,
+    wsConnecting,
+    wsOpen,
+    wsClose,
+    wsError,
+    wsMessage
+}
+
+const liveTableMiddleware = socketMiddleware(wsActions);
 
 export const store = configureStore({
     reducer: {
@@ -17,6 +31,7 @@ export const store = configureStore({
             thunk: {
                 extraArgument: burgerApi,
             },
+            liveTableMiddleware
         }),
 })
 

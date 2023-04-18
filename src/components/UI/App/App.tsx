@@ -16,8 +16,15 @@ import { ProtectedRoute } from '../../../protectedRoutes/profileRoute';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ResetPasswordPage from '../../../pages/ResetPasswordPage';
-import { useAppDispatch } from '../../../utils/types/hook';
+import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
 import FeedPage from '../../../pages/FeedPage';
+import { wsConnect, wsDisconnect } from '../../../services/features/websocket/actions';
+import { WebsocketStatus } from '../../../utils/action-utils';
+
+
+export const LIVE_TABLE_SERVER_URL = 'wss://norma.nomoreparties.space/orders/all';
+
+
 function App() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -36,6 +43,33 @@ function App() {
     navigate(background.pathname || "/", { replace: true })
   }
   const isFromForgotPassword = location.state?.fromForgotPassword;
+
+  const { table, status } = useAppSelector(state => state.rootReducer.liveTable)
+  const isDisconnected = status !== WebsocketStatus.OFFLINE;
+
+
+  const connected = (wsUrl: any) => dispatch(wsConnect(wsUrl))
+  const disConnected = () => dispatch(wsDisconnect())
+
+
+  useEffect(() => {
+    // dispatch(wsConnect(`${LIVE_TABLE_SERVER_URL}?token${token}`))
+    /*     dispatch(wsConnect('wss://norma.nomoreparties.space/orders/all')) */
+  }, []);
+
+  let className = 'app__status';
+  switch (status) {
+    case WebsocketStatus.ONLINE:
+      className += ' app__status--online';
+      break;
+    case WebsocketStatus.OFFLINE:
+      className += ' app__status--offline';
+      break;
+    case WebsocketStatus.CONNECTING:
+      className += ' app__status--connecting';
+      break;
+    default: break;
+  }
 
   return (
     <div className="App">
