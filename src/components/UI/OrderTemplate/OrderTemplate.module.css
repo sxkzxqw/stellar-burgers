@@ -9,12 +9,14 @@
     margin-right: 8px;
     position: relative;
     z-index: -2;
+    cursor: pointer;
 }
 
 .number {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 .date {
@@ -22,12 +24,15 @@
     color: #8585AD;
     font-weight: 300;
     font-size: 16px;
-    line-height: 24px;
+    margin: 0;
 }
 
 .images {
     display: flex;
     flex-direction: row-reverse;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .image__container {
@@ -66,4 +71,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.link {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }

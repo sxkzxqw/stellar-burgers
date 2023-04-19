@@ -1,4 +1,5 @@
 import { Dispatch, ReactNode, ReactElement } from "react"
+import { TOrder } from "../../services/features/reducers/feedPage/reducer"
 
 export type TIngredientType = {
     __v: number,
@@ -79,4 +80,20 @@ export type TMenuNavigation = {
 export type TProtectedRoute = {
     onlyUnAuth?: any,
     children: ReactElement,
+}
+
+export type wsPayloadConnect = {
+    wsUrl: string;
+    withTokenRefresh: boolean
+}
+
+export type TOptionsDate = {
+    timezone: 'Moscow',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZoneName: "short",
+}
+
+export type TOrderTemplate = {
+    order: TOrder
 }

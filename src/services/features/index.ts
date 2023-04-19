@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import user, { sliceName as userSliceStore } from "./UserSlice"
-import { liveTableReducer } from "./websocket/reducer";
+import { ordersReducer } from "./reducers/ordersPage/reducer";
+import { feedReducer } from "./reducers/feedPage/reducer";
 
 const rootReducer = combineReducers({
     [userSliceStore]: user,
-    liveTable: liveTableReducer
+    orderPage: ordersReducer,
+    feedPage: feedReducer,
 })
 export default rootReducer;

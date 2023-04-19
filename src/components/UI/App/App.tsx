@@ -18,11 +18,9 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ResetPasswordPage from '../../../pages/ResetPasswordPage';
 import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
 import FeedPage from '../../../pages/FeedPage';
-import { wsConnect, wsDisconnect } from '../../../services/features/websocket/actions';
-import { WebsocketStatus } from '../../../utils/action-utils';
-
-
-export const LIVE_TABLE_SERVER_URL = 'wss://norma.nomoreparties.space/orders/all';
+import { wsConnectFeed, wsDisconnectFeed } from '../../../services/features/reducers/feedPage/actions';
+import { BURGER_API_WSS_FEED } from '../../../API/burger-api';
+import OrderModal from '../OrderModal/OrderModal';
 
 
 function App() {
@@ -44,32 +42,13 @@ function App() {
   }
   const isFromForgotPassword = location.state?.fromForgotPassword;
 
-  const { table, status } = useAppSelector(state => state.rootReducer.liveTable)
-  const isDisconnected = status !== WebsocketStatus.OFFLINE;
-
-
-  const connected = (wsUrl: any) => dispatch(wsConnect(wsUrl))
-  const disConnected = () => dispatch(wsDisconnect())
-
-
   useEffect(() => {
-    // dispatch(wsConnect(`${LIVE_TABLE_SERVER_URL}?token${token}`))
-    /*     dispatch(wsConnect('wss://norma.nomoreparties.space/orders/all')) */
-  }, []);
 
-  let className = 'app__status';
-  switch (status) {
-    case WebsocketStatus.ONLINE:
-      className += ' app__status--online';
-      break;
-    case WebsocketStatus.OFFLINE:
-      className += ' app__status--offline';
-      break;
-    case WebsocketStatus.CONNECTING:
-      className += ' app__status--connecting';
-      break;
-    default: break;
-  }
+    dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false }))
+    return () => {
+      dispatch(wsDisconnectFeed())
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -104,12 +83,18 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='*' element={<PageNotFound />} />
         <Route path='ingredients/:id' element={<IngredientPage />} />
+        <Route path='feed/:id' element={<OrderModal />} />
       </Routes>
       {background &&
         <Routes>
           <Route path='ingredients/:id' element={
             <Modal handleClick={handleCloseModal}>
               {<IngredientDetails />}
+            </Modal>
+          } />
+          <Route path='feed/:id' element={
+            <Modal handleClick={handleCloseModal}>
+              {<OrderModal />}
             </Modal>
           } />
         </Routes>
