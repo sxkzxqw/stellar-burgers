@@ -23,12 +23,13 @@ const OrderTemplate: FC<TOrderTemplate> = ({ order }) => {
         0
     );
     const CurrentDate = dateWhen(new Date(order.createdAt))
+    const dateFormatCurrent = order.createdAt.toString()
     return (
         <Link to={{ pathname: location.pathname === '/feed' ? `/feed/${order._id}` : `/profile/orders/${order._id}` }} state={{ background: location }} className={styles.link}>
             <li className={styles.container}>
                 <div className={styles.number}>
                     <p className='text text_type_digits-default'>#{order?.number}</p>
-                    <p className={styles.date}>{`${CurrentDate}, ${dateFormat(order.createdAt)}`}</p>
+                    <p className={styles.date}>{`${CurrentDate}, ${dateFormat(dateFormatCurrent)}`}</p>
                 </div>
                 <h3 className='text text_type_main-medium'>{order?.name}</h3>
                 <div className={styles.bottom}>

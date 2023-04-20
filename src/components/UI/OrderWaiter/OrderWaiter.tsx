@@ -13,7 +13,7 @@ const OrderWaiter = () => {
                     <h3 className='text text_type_main-medium mb-6'>Готовы:</h3>
                     <ul className={styles.inProgress_list}>
                         {doneOrders?.map((order) => {
-                            return <li className={`${styles.done} text text_type_digits-default`}>{order.number}</li>
+                            return <li className={`${styles.done} text text_type_digits-default`} key={order.number}>{order.number}</li>
                         })}
                     </ul>
                 </div>
@@ -21,7 +21,7 @@ const OrderWaiter = () => {
                     <h3 className='text text_type_main-medium mb-6'>В работе:</h3>
                     <ul className={styles.inProgress_list}>
                         {pendingOrders?.map((order) => {
-                            return <li className={`text text_type_digits-default`}>{order.number}</li>
+                            return <li className={`text text_type_digits-default`} key={order.number}>{order.number}</li>
                         })}
                     </ul>
                 </div>

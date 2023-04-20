@@ -33,6 +33,7 @@ const OrderModal = () => {
     }
 
     const when = dateWhen(new Date(order.createdAt))
+    const currentDate = order!.createdAt.toString()
 
     return (
         <div className={styles.order_info}>
@@ -57,7 +58,7 @@ const OrderModal = () => {
             </ul>
             <div className={`${styles.total} mt-10 mb-10`}>
                 <p className="text text_type_main-default text_color_inactive">
-                    {`${when}, ${dateFormat(order!.createdAt)}`}
+                    {`${when}, ${dateFormat(currentDate)}`}
                 </p>
                 <div className={`${styles.total_price} mt-1 mb-2`}>
                     <p className="text text_type_digits-default">{totalOrderPrice}</p>

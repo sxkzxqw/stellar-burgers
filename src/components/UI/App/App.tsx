@@ -19,8 +19,10 @@ import ResetPasswordPage from '../../../pages/ResetPasswordPage';
 import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
 import FeedPage from '../../../pages/FeedPage';
 import { wsConnectFeed, wsDisconnectFeed } from '../../../services/features/reducers/feedPage/actions';
-import { BURGER_API_WSS_FEED } from '../../../API/burger-api';
+import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../../API/burger-api';
 import OrderModal from '../OrderModal/OrderModal';
+import OrdersPage from '../../../pages/OrdersPage';
+import { wsConnectOrder, wsDisconnectOrder } from '../../../services/features/reducers/ordersPage/actions';
 
 
 function App() {
@@ -45,8 +47,10 @@ function App() {
   useEffect(() => {
 
     dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false }))
+    dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
     return () => {
       dispatch(wsDisconnectFeed())
+      dispatch(wsDisconnectOrder())
     }
   }, []);
 
@@ -84,6 +88,13 @@ function App() {
         <Route path='*' element={<PageNotFound />} />
         <Route path='ingredients/:id' element={<IngredientPage />} />
         <Route path='feed/:id' element={<OrderModal />} />
+        <Route path='/profile/orders' element={
+          <ProtectedRoute>
+            <OrdersPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/profile/orders/:id' element={<OrderModal />
+        } />
       </Routes>
       {background &&
         <Routes>
@@ -93,6 +104,11 @@ function App() {
             </Modal>
           } />
           <Route path='feed/:id' element={
+            <Modal handleClick={handleCloseModal}>
+              {<OrderModal />}
+            </Modal>
+          } />
+          <Route path='profile/orders/:id' element={
             <Modal handleClick={handleCloseModal}>
               {<OrderModal />}
             </Modal>

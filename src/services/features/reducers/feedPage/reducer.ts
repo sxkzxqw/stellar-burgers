@@ -6,7 +6,7 @@ export type TOrder = {
     ingredients: string[],
     status: string,
     name: string,
-    createdAt: Date | string,
+    createdAt: Date,
     updatedAt: Date,
     number: number
 }
@@ -39,8 +39,6 @@ export const feedReducer = createReducer(initialState, (builder) => {
         .addCase(wsErrorFeed, (state, action) => {
         })
         .addCase(wsMessageFeed, (state, action) => {
-            console.log(action.payload);
-
             state.data = action.payload
         })
 })
