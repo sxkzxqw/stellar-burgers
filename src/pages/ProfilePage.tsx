@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './pages.module.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useMatch } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { logoutUser, updateInfoUser } from '../services/features/UserSlice';
 import { getCookie } from '../API/cookies';
@@ -39,7 +39,6 @@ const ProfilePage = () => {
             password: ''
         })
     }
-
     const isEditAvailable = Boolean(value.name !== name || value.email !== mail)
     return (
         <section className={styles.profile}>

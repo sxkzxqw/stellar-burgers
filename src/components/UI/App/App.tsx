@@ -16,7 +16,15 @@ import { ProtectedRoute } from '../../../protectedRoutes/profileRoute';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ResetPasswordPage from '../../../pages/ResetPasswordPage';
-import { useAppDispatch } from '../../../utils/types/hook';
+import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
+import FeedPage from '../../../pages/FeedPage';
+import { wsConnectFeed, wsDisconnectFeed } from '../../../services/features/reducers/feedPage/actions';
+import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../../API/burger-api';
+import OrderModal from '../OrderModal/OrderModal';
+import OrdersPage from '../../../pages/OrdersPage';
+import { wsConnectOrder, wsDisconnectOrder } from '../../../services/features/reducers/ordersPage/actions';
+
+
 function App() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -36,11 +44,22 @@ function App() {
   }
   const isFromForgotPassword = location.state?.fromForgotPassword;
 
+  useEffect(() => {
+
+    dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false }))
+    dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
+    return () => {
+      dispatch(wsDisconnectFeed())
+      dispatch(wsDisconnectOrder())
+    }
+  }, []);
+
   return (
     <div className="App">
       <AppHeader />
       <Routes location={background || location}>
         <Route path='/' element={<HomePage />} />
+        <Route path='/feed' element={<FeedPage />} />
         <Route path='login' element={<ProtectedRoute onlyUnAuth>
           <LoginPage />
         </ProtectedRoute>} />
@@ -68,12 +87,30 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='*' element={<PageNotFound />} />
         <Route path='ingredients/:id' element={<IngredientPage />} />
+        <Route path='feed/:id' element={<OrderModal />} />
+        <Route path='/profile/orders' element={
+          <ProtectedRoute>
+            <OrdersPage />
+          </ProtectedRoute>
+        } />
+        <Route path='/profile/orders/:id' element={<OrderModal />
+        } />
       </Routes>
       {background &&
         <Routes>
           <Route path='ingredients/:id' element={
             <Modal handleClick={handleCloseModal}>
               {<IngredientDetails />}
+            </Modal>
+          } />
+          <Route path='feed/:id' element={
+            <Modal handleClick={handleCloseModal}>
+              {<OrderModal />}
+            </Modal>
+          } />
+          <Route path='profile/orders/:id' element={
+            <Modal handleClick={handleCloseModal}>
+              {<OrderModal />}
             </Modal>
           } />
         </Routes>

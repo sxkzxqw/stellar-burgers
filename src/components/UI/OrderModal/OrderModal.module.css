@@ -1,0 +1,86 @@
+.order_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 640px;
+    margin: 100px auto 0 auto;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 16px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 200px;
+    margin-top: 24px;
+    padding-right: 8px;
+}
+
+.image_container {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+.total_price {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+}
+
+.total {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.price {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+}
+
+.image {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(black, black) padding-box,
+        linear-gradient(to right, rgba(76, 76, 255, 1), rgba(128, 26, 178, 1)) border-box;
+    border: 2px solid transparent;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.title {
+    width: 100%;
+    text-align: start;
+}
+
+.status {
+    width: 100%;
+    text-align: start;
+    color: #00CCCC
+}
+
+.text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
