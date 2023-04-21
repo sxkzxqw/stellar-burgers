@@ -175,7 +175,8 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    max-height: 90vh;
+    max-height: 835px;
     overflow-y: auto;
     margin-top: 40px;
+    width: 100%;
 }

@@ -34,4 +34,6 @@
 * React Hooks
 * Drag and drop
 * WebSockets
+* Jest (для тестирования)
+* Cypress (для тестирования)
 * И множество других технологий
