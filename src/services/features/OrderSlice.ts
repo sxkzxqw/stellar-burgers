@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { axiosInstance } from '../../API/Burgers';
+import { getCookie } from '../../API/cookies';
+import axios from 'axios';
 
 type TState = {
     orderIngredients: null | string[],
@@ -22,8 +24,15 @@ const initialState: TState = {
 export const sendOrder = createAsyncThunk(
     'order/post',
     async (selectOrderDetails: any, { rejectWithValue, dispatch }) => {
-        const res = await axiosInstance.post('orders', {
-            'ingredients': selectOrderDetails
+        const res = await axios({
+            url: 'https://norma.nomoreparties.space/api/orders',
+            method: 'POST',
+            headers: {
+                authorization: getCookie('accessToken')
+            },
+            data: {
+                'ingredients': selectOrderDetails
+            }
         })
         return res.data;
     }
