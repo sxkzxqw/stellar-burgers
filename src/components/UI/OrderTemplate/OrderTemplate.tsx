@@ -13,7 +13,10 @@ function inNotUndefined<T>(item: T | undefined): item is T {
 const OrderTemplate: FC<TOrderTemplate> = ({ order }) => {
     const location = useLocation()
     const ingredients = useAppSelector(state => state.burgerIngredient.ingredients)
-    const orderIngredientsForImage = ingredients.filter((ingredient) => order.ingredients.includes(ingredient._id))
+    let orderIngredientsForImage = ingredients.filter((ingredient) => order.ingredients.includes(ingredient._id))
+    if (orderIngredientsForImage.length > 8) {
+        orderIngredientsForImage = orderIngredientsForImage.slice(0, 8)
+    }
     const orderIngredientsForTotal =
         order.ingredients.map(id => {
             return ingredients.find(item => item._id === id);

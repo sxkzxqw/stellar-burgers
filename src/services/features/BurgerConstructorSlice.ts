@@ -9,7 +9,7 @@ type TState = {
     ingredients: Array<TIngredientType>
 }
 
-const initialState: TState = {
+export const initialState: TState = {
     bun: null,
     ingredients: [],
 }

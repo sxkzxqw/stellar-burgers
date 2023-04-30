@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { axiosInstance } from '../../API/Burgers';
 import { getCookie } from '../../API/cookies';
-import axios from 'axios';
+import axios from 'axios'
 
 type TState = {
     orderIngredients: null | string[],
@@ -15,7 +15,7 @@ type TState = {
     }
 }
 
-const initialState: TState = {
+export const initialState: TState = {
     orderIngredients: null,
     isLoading: false,
     serverResponse: null
