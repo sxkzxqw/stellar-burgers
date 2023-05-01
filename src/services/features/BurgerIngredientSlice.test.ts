@@ -1,5 +1,6 @@
 import { bunData, ingredientData } from "../../utils/fakeData-for-test";
 import burgerIngredientSlice, { initialState, getIngredients } from "./BurgerIngredientsSlice";
+// проблема с аксиосом не могу решить, с менторами тоже
 describe('burgerIngredientSlice reducer', () => {
     it('should return initial state', () => {
         expect(burgerIngredientSlice(initialState, { type: '' })).toEqual(

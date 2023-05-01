@@ -23,18 +23,32 @@ describe('user reducer', () => {
                 type: addConstructorElement.type,
                 payload: ingredientData
             })
-        ).toEqual({ ...initialState, ingredients: [ingredientData] });
+        ).toEqual({ ...initialState, ingredients: [{ ...ingredientData, uuid: expect.stringMatching('') }] });
     });
 
     it('check removeConstructorElement', () => {
-        expect(removeConstructorElement(initialState)).toEqual({
-            payload: {
-                bun: null,
-                ingredients: []
-            },
-            type: 'burgerConstructor/removeConstructorElement'
-        });
+        const id = 'id'
+        const stateAndIngredients = { ...initialState, ingredients: [{ ...ingredientData, uuid: id }] }
+        expect(
+            burgerConstructorSlice(stateAndIngredients, {
+                type: removeConstructorElement.type,
+                payload: id
+            })
+        ).toEqual(initialState);
     });
+
+    /*     it('should hanlde removeConstructorElement', () => {
+            const stateWithIngredients = {
+                ...initialState,
+                ingredients: [testIngredient]
+            };
+            expect(
+                burgerConstructorSlice(stateWithIngredients, {
+                    type: removeConstructorElement.type,
+                    payload: testIngredient
+                })
+            ).toEqual(initialState);
+        }); */
 
     it('check moveElement (start < end)', () => {
         const expectedResult = [bunData, ingredientData];
