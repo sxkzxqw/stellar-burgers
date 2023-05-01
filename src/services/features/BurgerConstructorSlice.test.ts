@@ -8,7 +8,7 @@ import burgerConstructorSlice, {
 } from './BurgerConstructorSlice'
 
 describe('user reducer', () => {
-    it('should hanlde burgerConstructorSlice', () => {
+    it('check burgerConstructorSlice', () => {
         expect(
             burgerConstructorSlice(initialState, {
                 type: addConstructorElement.type,
@@ -17,16 +17,16 @@ describe('user reducer', () => {
         ).toEqual({ ...initialState, bun: bunData });
     });
 
-    /*     it('should hanlde burgerConstructorSlice else', () => {
-            expect(
-                burgerConstructorSlice(initialState, {
-                    type: addConstructorElement.type,
-                    payload: ingredientData
-                })
-            ).toEqual({ ...initialState, ingredients: [ingredientData] });
-        }); */
+    it('check burgerConstructorSlice ingredients with uuid', () => {
+        expect(
+            burgerConstructorSlice(initialState, {
+                type: addConstructorElement.type,
+                payload: ingredientData
+            })
+        ).toEqual({ ...initialState, ingredients: [ingredientData] });
+    });
 
-    it('should hanlde removeConstructorElement', () => {
+    it('check removeConstructorElement', () => {
         expect(removeConstructorElement(initialState)).toEqual({
             payload: {
                 bun: null,
@@ -36,7 +36,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde moveElement (start < end)', () => {
+    it('check moveElement (start < end)', () => {
         const expectedResult = [bunData, ingredientData];
         const ingredients = [ingredientData, bunData];
         expect(
@@ -50,7 +50,7 @@ describe('user reducer', () => {
         ).toEqual({ ...initialState, ingredients: expectedResult });
     });
 
-    it('should hanlde moveElement (start === end)', () => {
+    it('check moveElement (start === end)', () => {
         const ingredients = [ingredientData, bunData];
         expect(
             burgerConstructorSlice(
@@ -62,7 +62,7 @@ describe('user reducer', () => {
             )
         ).toEqual({ ...initialState, ingredients: ingredients });
     });
-    it('should hanlde moveElement (start > end)', () => {
+    it('check moveElement (start > end)', () => {
         const ingredients = [bunData, ingredientData];
         const expectedResult = [ingredientData, bunData];
         expect(
@@ -75,13 +75,10 @@ describe('user reducer', () => {
             )
         ).toEqual({ ...initialState, ingredients: expectedResult });
     });
-    /*     it('should hanlde clear all elemnts', () => {
-            expect(clearElements(initialState)).toEqual({
-                payload: {
-                    bun: null,
-                    ingredients: []
-                },
-                type: clearElements.type
-            });
-        }); */
+    it('check clear all elemnts', () => {
+        expect(clearElements()).toEqual({
+            payload: undefined,
+            type: clearElements.type
+        });
+    });
 });

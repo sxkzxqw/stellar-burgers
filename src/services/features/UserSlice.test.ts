@@ -37,19 +37,23 @@ const initialState = {
     resetPasswordNewRequest: false,
 }
 
+const rejectedTestData = {
+    "message": "email or password are incorrect"
+}
+
 describe('user reducer', () => {
-    it('should return initial state', () => {
+    it('check initial state', () => {
         expect(userReducer(undefined, { type: '' })).toEqual(initialState)
     });
 
-    it('should hanlde authCheck action', () => {
+    it('check authCheck action', () => {
         expect(userReducer(initialState, { type: authCheck.type })).toEqual({
             ...initialState,
             isAuthChecked: true
         });
     });
 
-    it('should hanlde checkUserAuth fulfilled', () => {
+    it('check checkUserAuth fulfilled', () => {
         expect(
             userReducer(initialState, {
                 payload: userDataTest,
@@ -62,7 +66,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde registerUser fulfilled', () => {
+    it('check registerUser fulfilled', () => {
         expect(
             userReducer(initialState, {
                 payload: userDataTest,
@@ -75,7 +79,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde loginUser fulfilled', () => {
+    it('check loginUser fulfilled', () => {
         expect(
             userReducer(initialState, {
                 payload: userDataTest,
@@ -88,7 +92,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde logoutUser fulfilled', () => {
+    it('check logoutUser fulfilled', () => {
         expect(
             userReducer(initialState, {
                 payload: userDataTest,
@@ -101,7 +105,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde updateInfoUser fulfilled', () => {
+    it('check updateInfoUser fulfilled', () => {
         expect(
             userReducer(initialState, {
                 payload: userDataTest,
@@ -114,7 +118,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde resetPasswordNew fulfilled', () => {
+    it('check resetPasswordNew fulfilled', () => {
         expect(
             userReducer(initialState, {
                 payload: userDataTest,
@@ -126,7 +130,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde resetPasswordEmail fulfilled', () => {
+    it('check resetPasswordEmail fulfilled', () => {
         expect(
             userReducer(initialState, {
                 payload: userDataTest,
@@ -140,7 +144,7 @@ describe('user reducer', () => {
 
     // pending
 
-    it('should hanlde checkUserAuth pending', () => {
+    it('check checkUserAuth pending', () => {
         expect(
             userReducer(initialState, { type: checkUserAuth.pending.type })
         ).toEqual({
@@ -151,7 +155,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde registerUser pending', () => {
+    it('check registerUser pending', () => {
         expect(
             userReducer(initialState, { type: registerUser.pending.type })
         ).toEqual({
@@ -162,7 +166,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde loginUser pending', () => {
+    it('check loginUser pending', () => {
         expect(userReducer(initialState, { type: loginUser.pending.type })).toEqual(
             {
                 ...initialState,
@@ -173,7 +177,7 @@ describe('user reducer', () => {
         );
     });
 
-    it('should hanlde logoutUser pending', () => {
+    it('check logoutUser pending', () => {
         expect(
             userReducer(initialState, { type: logoutUser.pending.type })
         ).toEqual({
@@ -184,7 +188,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde updateInfoUser pending', () => {
+    it('check updateInfoUser pending', () => {
         expect(
             userReducer(initialState, { type: updateInfoUser.pending.type })
         ).toEqual({
@@ -194,7 +198,7 @@ describe('user reducer', () => {
             updateInfoUserError: null
         });
     });
-    it('should hanlde resetPasswordNew pending', () => {
+    it('check resetPasswordNew pending', () => {
         expect(
             userReducer(initialState, { type: resetPasswordNew.pending.type })
         ).toEqual({
@@ -205,7 +209,7 @@ describe('user reducer', () => {
         });
     });
 
-    it('should hanlde resetPasswordEmail pending', () => {
+    it('check resetPasswordEmail pending', () => {
         expect(
             userReducer(initialState, { type: resetPasswordEmail.pending.type })
         ).toEqual({
@@ -218,82 +222,76 @@ describe('user reducer', () => {
 
     // reject
 
-    // it('should hanlde checkUserAuth rejected', () => {
-    //   expect(
-    //     userReducer(initialState, {
-    //       payload: userDataTest,
-    //       type: checkUserAuth.rejected.type
-    //     })
-    //   ).toEqual({
-    //     ...initialState,
-    //     checkUserAuthRequest: false,
-    //     checkUserAuthError: userDataTest
-    //   });
-    // });
+    it('check checkUserAuth rejected', () => {
+        expect(
+            userReducer(initialState, {
+                payload: rejectedTestData,
+                type: checkUserAuth.rejected.type
+            })
+        ).toEqual({
+            ...initialState,
+            checkUserAuthRequest: false,
+            checkUserAuthError: rejectedTestData
+        });
+    });
 
-    // it('should hanlde checkUserAuth rejected', () => {
-    //   expect(
-    //     userReducer(initialState, { type: checkUserAuth.rejected.type })
-    //   ).toEqual({
-    //     ...initialState,
-    //     data: null,
-    //     checkUserAuthRequest: false,
-    //     checkUserAuthError: undefined
-    //   });
-    // });
+    it('check registerUser rejected', () => {
+        expect(
+            userReducer(initialState, { payload: rejectedTestData, type: registerUser.rejected.type })
+        ).toEqual({
+            ...initialState,
+            registerUserRequest: false,
+            registerUserError: rejectedTestData
+        });
+    });
 
-    // it('should hanlde checkUserAuth rejected', () => {
-    //   expect(
-    //     userReducer(initialState, { type: checkUserAuth.rejected.type })
-    //   ).toEqual({
-    //     ...initialState,
-    //     data: null,
-    //     checkUserAuthRequest: false,
-    //     checkUserAuthError: undefined
-    //   });
-    // });
+    it('check loginUser rejected', () => {
+        expect(
+            userReducer(initialState, { payload: rejectedTestData, type: loginUser.rejected.type })
+        ).toEqual({
+            ...initialState,
+            loginUserRequest: false,
+            loginUserError: rejectedTestData
+        });
+    });
 
-    // it('should hanlde checkUserAuth rejected', () => {
-    //   expect(
-    //     userReducer(initialState, { type: checkUserAuth.rejected.type })
-    //   ).toEqual({
-    //     ...initialState,
-    //     data: null,
-    //     checkUserAuthRequest: false,
-    //     checkUserAuthError: undefined
-    //   });
-    // });
+    it('check loginUser rejected', () => {
+        expect(
+            userReducer(initialState, { payload: rejectedTestData, type: loginUser.rejected.type })
+        ).toEqual({
+            ...initialState,
+            loginUserRequest: false,
+            loginUserError: rejectedTestData
+        });
+    });
 
-    // it('should hanlde checkUserAuth rejected', () => {
-    //   expect(
-    //     userReducer(initialState, { type: checkUserAuth.rejected.type })
-    //   ).toEqual({
-    //     ...initialState,
-    //     data: null,
-    //     checkUserAuthRequest: false,
-    //     checkUserAuthError: undefined
-    //   });
-    // });
+    it('check updateInfoUser rejected', () => {
+        expect(
+            userReducer(initialState, { payload: rejectedTestData, type: updateInfoUser.rejected.type })
+        ).toEqual({
+            ...initialState,
+            updateInfoUserRequest: false,
+            updateInfoUserError: rejectedTestData
+        });
+    });
 
-    // it('should hanlde checkUserAuth rejected', () => {
-    //   expect(
-    //     userReducer(initialState, { type: checkUserAuth.rejected.type })
-    //   ).toEqual({
-    //     ...initialState,
-    //     data: null,
-    //     checkUserAuthRequest: false,
-    //     checkUserAuthError: undefined
-    //   });
-    // });
+    it('check resetPasswordNew rejected', () => {
+        expect(
+            userReducer(initialState, { payload: rejectedTestData, type: resetPasswordNew.rejected.type })
+        ).toEqual({
+            ...initialState,
+            resetPasswordNewRequest: false,
+            resetPasswordNewError: rejectedTestData
+        });
+    });
 
-    // it('should hanlde checkUserAuth rejected', () => {
-    //   expect(
-    //     userReducer(initialState, { type: checkUserAuth.rejected.type })
-    //   ).toEqual({
-    //     ...initialState,
-    //     data: null,
-    //     checkUserAuthRequest: false,
-    //     checkUserAuthError: undefined
-    //   });
-    // });
+    it('check resetPasswordEmail rejected', () => {
+        expect(
+            userReducer(initialState, { payload: rejectedTestData, type: resetPasswordEmail.rejected.type })
+        ).toEqual({
+            ...initialState,
+            resetPasswordEmailRequest: false,
+            resetPasswordEmailError: rejectedTestData
+        });
+    });
 });

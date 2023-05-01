@@ -101,7 +101,7 @@ const BurgerConstructor = () => {
                     />
                 }
             </div>
-            <ul className={`${styles.order__list} custom-scroll`} style={{ paddingRight: scrollbarShow ? '0px' : '8px', paddingBottom: scrollbarShow ? '0px' : '16px', paddingTop: scrollbarShow ? '0px' : '16px' }}>
+            <ul className={`${styles.order__list} custom-scroll`} style={{ paddingRight: scrollbarShow ? '0px' : '8px', paddingBottom: scrollbarShow ? '0px' : '16px', paddingTop: scrollbarShow ? '0px' : '16px' }} id='ingredientDnD'>
                 {ingredients?.map((ingredient, index) => {
                     return (
                         <ConstructorElementTemplate

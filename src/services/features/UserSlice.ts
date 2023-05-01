@@ -4,7 +4,6 @@ import { deleteCookie, setCookie } from '../../API/cookies';
 import { ThunkAPI } from '../store';
 import { IUser, IUserReq } from '../../API/burger-api';
 export const sliceName = 'user';
-
 type TUserState = {
     isAuthChecked: boolean;
     data?: {
@@ -35,7 +34,7 @@ type TUserState = {
     resetPasswordNewRequest: boolean | null;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
     isAuthChecked: false,
     data: null,
 
@@ -78,6 +77,7 @@ export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
 
     }
 );
+
 
 
 
@@ -196,6 +196,7 @@ const user = createSlice({
                 state[`${getActionName(action.type)}Error`] = null;
             })
             .addMatcher(isActionRejected, (state: { [key: string]: unknown }, action) => {
+                console.log('act', action);
                 state[`${getActionName(action.type)}Error`] = action.payload;
                 state[`${getActionName(action.type)}Request`] = false;
             })

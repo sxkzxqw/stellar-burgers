@@ -8,7 +8,7 @@ type TBurgerIngredientsSlice = {
     isLoading: boolean,
 }
 
-const initialState: TBurgerIngredientsSlice = {
+export const initialState: TBurgerIngredientsSlice = {
     ingredients: [],
     currentIngredient: null,
     isLoading: false,

@@ -1,14 +1,14 @@
-/* import { testOrder } from "../../utils/fakeData-for-test";
+import { testOrder } from "../../utils/fakeData-for-test";
 import { initialState, orderSlice, sendOrder } from "./OrderSlice";
 
 describe('burgerOrderInfoSlice reducer', () => {
-    it('should return initial state', () => {
+    it('check initial state', () => {
         expect(orderSlice.reducer(initialState, { type: '' })).toEqual(
             initialState
         );
     });
 
-    it('should hanlde sendOrder fulfilled', () => {
+    it('check sendOrder fulfilled', () => {
         expect(
             orderSlice.reducer(initialState, {
                 payload: testOrder,
@@ -17,7 +17,7 @@ describe('burgerOrderInfoSlice reducer', () => {
         ).toEqual({ ...initialState, serverResponse: testOrder, isLoading: false });
     });
 
-    it('should return sendOrder pending', () => {
+    it('check sendOrder pending', () => {
         expect(
             orderSlice.reducer(initialState, {
                 payload: testOrder,
@@ -26,7 +26,7 @@ describe('burgerOrderInfoSlice reducer', () => {
         ).toEqual({ ...initialState, isLoading: true });
     });
 
-    it('should return sendOrder rejected', () => {
+    it('check sendOrder rejected', () => {
         expect(
             orderSlice.reducer(initialState, {
                 payload: testOrder,
@@ -34,4 +34,4 @@ describe('burgerOrderInfoSlice reducer', () => {
             })
         ).toEqual({ ...initialState, isLoading: false });
     });
-}); */
+}); 

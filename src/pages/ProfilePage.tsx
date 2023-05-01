@@ -5,9 +5,17 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { logoutUser, updateInfoUser } from '../services/features/UserSlice';
 import { getCookie } from '../API/cookies';
 import { useAppDispatch, useAppSelector } from '../utils/types/hook';
+import { wsConnectOrder, wsDisconnectOrder } from '../services/features/reducers/ordersPage/actions';
+import { BURGER_API_WSS_ORDERS } from '../API/burger-api';
 
 const ProfilePage = () => {
     const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
+        return () => {
+            dispatch(wsDisconnectOrder())
+        }
+    }, []);
     const mail = useAppSelector(state => state?.rootReducer?.user?.data?.email)
     const name = useAppSelector(state => state?.rootReducer?.user?.data?.name)
     const [value, setValue] = React.useState({

@@ -44,16 +44,6 @@ function App() {
   }
   const isFromForgotPassword = location.state?.fromForgotPassword;
 
-  useEffect(() => {
-
-    dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false }))
-    dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
-    return () => {
-      dispatch(wsDisconnectFeed())
-      dispatch(wsDisconnectOrder())
-    }
-  }, []);
-
   return (
     <div className="App">
       <AppHeader />
