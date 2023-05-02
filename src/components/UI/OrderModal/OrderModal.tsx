@@ -2,29 +2,49 @@ import React, { useMemo } from 'react';
 import styles from './OrderModal.module.css'
 import { dateFormat, dateWhen } from '../../../utils/date';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../../utils/types/hook';
 
 function inNotUndefined<T>(item: T | undefined): item is T {
     return item !== undefined
 }
+
+type TOrder = {
+    createdAt: Date,
+    ingredients: [],
+    name: string,
+    number: number,
+    updatedAt: string,
+    _id?: string,
+}
 const OrderModal = () => {
+    const location = useLocation()
+    const pathname = location.pathname
+    const newPathname = pathname.toString()
+
     const ingredients = useAppSelector((state) => state.burgerIngredient.ingredients);
-    const orders = useAppSelector((state) => state.rootReducer.feedPage.data?.orders);
+    const ordersFeed = useAppSelector((state) => state.rootReducer.feedPage.data?.orders);
+    const ordersProfile = useAppSelector(state => state.rootReducer.orderPage.data?.orders)
+    let orders: any
+    if (newPathname.includes('/profile')) {
+        orders = ordersProfile
+    } else {
+        orders = ordersFeed
+    }
     const { id } = useParams<{ id: string }>();
-    const order = useMemo(() => {
-        return orders?.find(order => order._id === id)
+    const order: any = useMemo(() => {
+        return orders?.find((order: any) => order._id === id)
     }, [orders, id])
 
     const orderIngredientsForImage = ingredients.filter((ingredient) => order?.ingredients.includes(ingredient._id))
 
     const orderIngredients =
-        order?.ingredients.map(id => {
+        order?.ingredients.map((id: string) => {
             return ingredients.find(item => item._id === id);
         }).filter(inNotUndefined);
 
     const totalOrderPrice = orderIngredients?.reduce(
-        (acc, ingredient) => acc + ingredient.price,
+        (acc: any, ingredient: any) => acc + ingredient.price,
         0
     );
 
@@ -50,7 +70,7 @@ const OrderModal = () => {
                                 <p className={`${styles.text} text_type_main-default`}>{item.name}</p>
                             </div>
                             <p className={`${styles.price} text text_type_digits-default`}>
-                                {orderIngredients?.filter(i => i._id === item._id).length} x {item.price} <CurrencyIcon type='primary' />
+                                {orderIngredients?.filter((i: any) => i._id === item._id).length} x {item.price} <CurrencyIcon type='primary' />
                             </p>
                         </li>
                     )}

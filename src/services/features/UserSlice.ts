@@ -109,7 +109,7 @@ export const loginUser = createAsyncThunk<any, IUserReq, ThunkAPI>(`${sliceName}
     }
 );
 
-export const logoutUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/logoutUser`,
+export const logoutUser = createAsyncThunk<any, { token: string }, ThunkAPI>(`${sliceName}/logoutUser`,
     async (dataUser, { extra: api, rejectWithValue }) => {
         const data = await api.logoutUser(dataUser);
         console.log('responce', data);
@@ -122,7 +122,7 @@ export const logoutUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/
     }
 );
 
-export const updateInfoUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/updateInfoUser`,
+export const updateInfoUser = createAsyncThunk<any, { name: string, email: string, password: string }, ThunkAPI>(`${sliceName}/updateInfoUser`,
     async (dataUser, { extra: api, rejectWithValue }) => {
         const data = await api.updateInfoUser(dataUser);
         console.log('responce', data);
@@ -133,7 +133,7 @@ export const updateInfoUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceNa
     }
 );
 
-export const resetPasswordEmail = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/resetPasswordEmail`,
+export const resetPasswordEmail = createAsyncThunk<any, { email: string }, ThunkAPI>(`${sliceName}/resetPasswordEmail`,
     async (dataUser, { extra: api, rejectWithValue }) => {
         const data = await api.forgotPasswordEmail(dataUser);
         console.log('responce', data);
@@ -144,7 +144,7 @@ export const resetPasswordEmail = createAsyncThunk<any, object, ThunkAPI>(`${sli
     }
 );
 
-export const resetPasswordNew = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/resetPasswordNew`,
+export const resetPasswordNew = createAsyncThunk<any, { token: string, password: string }, ThunkAPI>(`${sliceName}/resetPasswordNew`,
     async (dataUser, { extra: api, rejectWithValue }) => {
         const data = await api.forgotPasswordNew(dataUser);
         console.log('responce', data);

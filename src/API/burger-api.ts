@@ -84,7 +84,9 @@ export class BurgerApi {
             });
     };
 
-    logoutUser = (data: any) => {
+    logoutUser = (data: {
+        token: string
+    }) => {
         return fetch(`${BURGER_API_URL}/auth/logout`, {
             method: "POST",
             headers: {
@@ -98,7 +100,9 @@ export class BurgerApi {
             });
     };
 
-    forgotPasswordEmail = (data: any) => {
+    forgotPasswordEmail = (data: {
+        email: string
+    }) => {
         return fetch(`${BURGER_API_URL}/password-reset`, {
             method: "POST",
             headers: {
@@ -112,7 +116,10 @@ export class BurgerApi {
             });
     };
 
-    forgotPasswordNew = (data: any) => {
+    forgotPasswordNew = (data: {
+        token: string,
+        password: string
+    }) => {
         return fetch(`${BURGER_API_URL}/password-reset/reset`, {
             method: "POST",
             headers: {
@@ -126,7 +133,11 @@ export class BurgerApi {
             });
     };
 
-    updateInfoUser = (data: any) => {
+    updateInfoUser = (data: {
+        email: string,
+        password: string,
+        name: string
+    }) => {
         return fetch(`${BURGER_API_URL}/auth/user`, {
             method: "PATCH",
             headers: {

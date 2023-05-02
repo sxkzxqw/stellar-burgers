@@ -42,14 +42,8 @@ function App() {
     dispatch(clearCurrentIngredient())
     navigate(background.pathname || "/", { replace: true })
   }
-  const isFromForgotPassword = location.state?.fromForgotPassword;
 
-  useEffect(() => {
-    dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false }))
-    return () => {
-      dispatch(wsDisconnectFeed())
-    }
-  }, []);
+  const isFromForgotPassword = location.state?.fromForgotPassword;
 
   return (
     <div className="App">
@@ -90,7 +84,10 @@ function App() {
             <OrdersPage />
           </ProtectedRoute>
         } />
-        <Route path='/profile/orders/:id' element={<OrderModal />
+        <Route path='/profile/orders/:id' element={
+          <ProtectedRoute>
+            <OrderModal />
+          </ProtectedRoute>
         } />
       </Routes>
       {background &&
