@@ -7,35 +7,10 @@ import {
     registerUser,
     resetPasswordEmail,
     resetPasswordNew,
-    updateInfoUser
+    updateInfoUser,
+    initialState
 } from './UserSlice'
 import userReducer from './UserSlice';
-
-const initialState = {
-    isAuthChecked: false,
-    data: null,
-
-    registerUserError: null,
-    registerUserRequest: false,
-
-    loginUserError: null,
-    loginUserRequest: false,
-
-    getUserError: null,
-    getUserRequest: false,
-
-    logoutUserError: null,
-    logoutUserRequest: false,
-
-    updateInfoUserError: null,
-    updateInfoUserRequest: false,
-
-    resetPasswordEmailError: null,
-    resetPasswordEmailRequest: false,
-
-    resetPasswordNewError: null,
-    resetPasswordNewRequest: false,
-}
 
 const rejectedTestData = {
     "message": "email or password are incorrect"

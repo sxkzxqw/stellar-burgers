@@ -5,17 +5,9 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { logoutUser, updateInfoUser } from '../services/features/UserSlice';
 import { getCookie } from '../API/cookies';
 import { useAppDispatch, useAppSelector } from '../utils/types/hook';
-import { wsConnectOrder, wsDisconnectOrder } from '../services/features/reducers/ordersPage/actions';
-import { BURGER_API_WSS_ORDERS } from '../API/burger-api';
-
+import ProfileNavigation from '../components/UI/ProfileNavigation/ProfileNavigation';
 const ProfilePage = () => {
     const dispatch = useAppDispatch()
-    useEffect(() => {
-        dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
-        return () => {
-            dispatch(wsDisconnectOrder())
-        }
-    }, []);
     const mail = useAppSelector(state => state?.rootReducer?.user?.data?.email)
     const name = useAppSelector(state => state?.rootReducer?.user?.data?.name)
     const [value, setValue] = React.useState({
@@ -50,33 +42,7 @@ const ProfilePage = () => {
     const isEditAvailable = Boolean(value.name !== name || value.email !== mail)
     return (
         <section className={styles.profile}>
-            <nav className={styles.menu}>
-                <NavLink
-                    className={({ isActive }) =>
-                        isActive ? `${activeClassName}` : `${inactiveClassName}`
-                    }
-                    to='/profile'
-                >
-                    Профиль
-                </NavLink>
-                <NavLink
-                    to='/profile/orders'
-                    className={({ isActive }) =>
-                        isActive ? `${activeClassName}` : `${inactiveClassName}`
-                    }
-                >
-                    История заказов
-                </NavLink>
-                <button
-                    className={`${styles.button} text text_type_main-medium text_color_inactive`}
-                    onClick={() => {
-                        logout(RequestBody)
-                    }}
-                >
-                    Выход
-                </button>
-                <span className="text text_type_main-default text_color_inactive mt-20">В этом разделе вы можете изменить свои персональные данные</span>
-            </nav>
+            <ProfileNavigation />
             <form className={styles.container} onSubmit={(e) => {
                 e.preventDefault();
                 changeValue(requestBodyChange)

@@ -61,6 +61,7 @@ export const initialState: TUserState = {
 }
 
 export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
+    //не совсем понял что нужно тут сделать + тут ошибки т к аргумента нет
     async (_, { extra: api, rejectWithValue, dispatch }: any) => {
         try {
             const data = await api.getUser();

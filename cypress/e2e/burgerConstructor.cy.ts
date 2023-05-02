@@ -1,25 +1,29 @@
+const bun = 'Флюоресцентная булка'
+const secondBun = 'Краторная булка'
+const host = 'http://localhost:3000/stellar-burgers'
+
 describe('template spec', () => {
     beforeEach(() => {
         cy.viewport(1920, 1080);
-        cy.visit('http://localhost:3000/stellar-burgers');
+        cy.visit(host);
     });
 
     it('pass open modal', () => {
-        cy.contains('Флюоресцентная булка').click();
+        cy.contains(bun).click();
     });
 
     it('pass ingredient-info modal', () => {
-        cy.contains('Флюоресцентная булка').click();
-        cy.get('#modal').contains('Флюоресцентная булка');
+        cy.contains(bun).click();
+        cy.get('#modal').contains(bun);
     });
 
     it('pass closing modal', () => {
-        cy.contains('Флюоресцентная булка').click();
+        cy.contains(bun).click();
         cy.get('#closeBtnModal').click();
     });
 
     it('pass DnD', () => {
-        cy.contains('Краторная булка').trigger('dragstart');
+        cy.contains(secondBun).trigger('dragstart');
         cy.contains('Выберите булку')
             .trigger('dragenter')
             .trigger('dragover')
@@ -27,7 +31,7 @@ describe('template spec', () => {
     });
 
     it('pass open order modal', () => {
-        cy.contains('Краторная булка').trigger('dragstart');
+        cy.contains(secondBun).trigger('dragstart');
         cy.contains('Выберите булку')
             .trigger('dragenter')
             .trigger('dragover')
