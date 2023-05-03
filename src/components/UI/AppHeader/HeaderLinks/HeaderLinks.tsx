@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styles from './HeaderLinks.module.css';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom'
 import { THeaderLinks } from '../../../../utils/types/types';
 

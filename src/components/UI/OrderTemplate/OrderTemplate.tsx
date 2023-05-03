@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styles from './OrderTemplate.module.css'
-import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppSelector } from '../../../utils/types/hook'
 import { dateFormat, dateWhen } from '../../../utils/date';
 import { TOrderTemplate } from '../../../utils/types/types';

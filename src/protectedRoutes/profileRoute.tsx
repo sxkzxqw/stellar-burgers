@@ -1,18 +1,17 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from "react-router-dom";
 import { TProtectedRoute } from '../utils/types/types';
 import { useAppSelector } from '../utils/types/hook';
 import { getCookie } from '../API/cookies';
+import Loader from '../components/UI/Loader/Loader';
 
 export const ProtectedRoute: FC<TProtectedRoute> = ({ onlyUnAuth, children }) => {
     const location = useLocation();
-    const user = useAppSelector(state => state.rootReducer?.user.data)
     const isAuthChecked = useAppSelector(state => state.rootReducer?.user.isAuthChecked);
     const isLogged = getCookie('accessToken')
 
     if (!isAuthChecked) {
-        return <h2>Loading...</h2>
+        return <Loader />
     }
 
     if (onlyUnAuth && isLogged) {

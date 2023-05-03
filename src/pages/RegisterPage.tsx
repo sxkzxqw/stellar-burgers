@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styles from './pages.module.css';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { registerUser } from '../services/features/UserSlice';
 import { useAppDispatch } from '../utils/types/hook';
+import { IUserReqLog } from '../API/burger-api';
 
 const RegisterPage = () => {
     const dispatch = useAppDispatch()
@@ -13,7 +14,7 @@ const RegisterPage = () => {
         name: '',
     })
 
-    const registerCallBack = (value: any) => {
+    const registerCallBack = (value: IUserReqLog) => {
         dispatch(registerUser(value))
         setValue({
             email: '',

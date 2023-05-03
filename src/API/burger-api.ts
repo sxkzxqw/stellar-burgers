@@ -12,15 +12,27 @@ export interface IUser {
 }
 
 export interface IUserReq {
+    user: IUser,
+    success?: boolean,
+    accessToken?: string,
+    refreshToken?: string,
+    email?: string,
+    password?: string,
+}
+
+export interface IUserReqLog {
     user?: IUser,
-    success: boolean,
-    accessToken: string,
-    refreshToken: string,
+    success?: boolean,
+    accessToken?: string,
+    refreshToken?: string,
+    name?: string,
+    password?: string,
+    email?: string,
 }
 
 export type TUserResponse = {
     success: boolean,
-    user?: IUser,
+    user: IUser,
     accessToken: string,
     refreshToken: string,
 }
@@ -85,7 +97,7 @@ export class BurgerApi {
     };
 
     logoutUser = (data: {
-        token: string
+        token: string | undefined
     }) => {
         return fetch(`${BURGER_API_URL}/auth/logout`, {
             method: "POST",

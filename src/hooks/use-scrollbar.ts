@@ -3,13 +3,15 @@ import { OverlayScrollbars } from 'overlayscrollbars';
 
 const config = {};
 
-const useScrollbar = (root: any, hasScroll: boolean) => {
+const useScrollbar = (root: { current: HTMLDivElement }, hasScroll: boolean) => {
     useEffect(() => {
-        let scrollbars: any;
+        let scrollbars: any
 
         if (root.current && hasScroll) {
             scrollbars = OverlayScrollbars(root.current, config)
         }
+
+        console.log(scrollbars);
 
         return () => {
             if (scrollbars) {

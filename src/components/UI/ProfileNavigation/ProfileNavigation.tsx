@@ -16,9 +16,12 @@ const ProfileNavigation = () => {
         'token': token
     }
 
-    const logout = (RequestBody: any) => {
+    const logout = (RequestBody: {
+        token: string | undefined
+    }) => {
         dispatch(logoutUser(RequestBody))
     }
+
     return (
         <nav className={isProfileActive ? `${styles.menu_orders_profile}` : `${styles.menu_orders}`}>
             <NavLink

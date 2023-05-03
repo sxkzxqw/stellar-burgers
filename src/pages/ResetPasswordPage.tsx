@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './pages.module.css';
-import { Link, NavLink, Route, useNavigate } from 'react-router-dom';
-import { Button, EmailInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { resetPasswordNew } from '../services/features/UserSlice';
 import { useAppDispatch } from '../utils/types/hook';
@@ -15,7 +15,10 @@ const ResetPasswordPage = () => {
     })
 
     const requestBody = value
-    const onSubmit = (requestBody: any) => {
+    const onSubmit = (requestBody: {
+        password: string,
+        token: string
+    }) => {
         dispatch(resetPasswordNew(requestBody))
     }
 

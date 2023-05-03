@@ -37,19 +37,6 @@ describe('user reducer', () => {
         ).toEqual(initialState);
     });
 
-    /*     it('should hanlde removeConstructorElement', () => {
-            const stateWithIngredients = {
-                ...initialState,
-                ingredients: [testIngredient]
-            };
-            expect(
-                burgerConstructorSlice(stateWithIngredients, {
-                    type: removeConstructorElement.type,
-                    payload: testIngredient
-                })
-            ).toEqual(initialState);
-        }); */
-
     it('check moveElement (start < end)', () => {
         const expectedResult = [bunData, ingredientData];
         const ingredients = [ingredientData, bunData];

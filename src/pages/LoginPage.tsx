@@ -4,6 +4,8 @@ import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../services/features/UserSlice';
 import { useAppDispatch, useAppSelector } from '../utils/types/hook';
+import { IUserReq } from '../API/burger-api';
+import Loader from '../components/UI/Loader/Loader';
 
 const LoginPage = () => {
     const dispatch = useAppDispatch()
@@ -15,7 +17,7 @@ const LoginPage = () => {
 
     const isLoginAvailable = Boolean(value.email.includes('@') && value.password.length > 5);
     const isUserLoginnedSuccessfully = useAppSelector(state => state?.rootReducer?.user?.data)
-    const onClickLogin = (data: any) => {
+    const onClickLogin = (data: IUserReq) => {
         dispatch(loginUser(data))
         if (isUserLoginnedSuccessfully) {
             navigate('/profile')
@@ -36,7 +38,7 @@ const LoginPage = () => {
             }
             {
                 isLoading
-                    ? <h2 className={`text text_type_digits-large mb-8 ${styles.digit__effect}`}>Loading...</h2>
+                    ? <Loader />
                     : <form className={styles.container} onSubmit={(e) => {
                         e.preventDefault()
                         onClickLogin(value)

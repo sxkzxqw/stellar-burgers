@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
 import styles from './pages.module.css';
-import { NavLink, useLocation, useMatch } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { logoutUser, updateInfoUser } from '../services/features/UserSlice';
-import { getCookie } from '../API/cookies';
+import { updateInfoUser } from '../services/features/UserSlice';
 import { useAppDispatch, useAppSelector } from '../utils/types/hook';
 import ProfileNavigation from '../components/UI/ProfileNavigation/ProfileNavigation';
 const ProfilePage = () => {
     const dispatch = useAppDispatch()
-    const mail = useAppSelector(state => state?.rootReducer?.user?.data?.email)
-    const name = useAppSelector(state => state?.rootReducer?.user?.data?.name)
+    const mail = useAppSelector(state => state?.rootReducer?.user?.data?.email) || "";
+    const name = useAppSelector(state => state?.rootReducer?.user?.data?.name) || "";
     const [value, setValue] = React.useState({
         name: name,
         email: mail,
@@ -17,18 +15,11 @@ const ProfilePage = () => {
     })
     const requestBodyChange = value
 
-    const inactiveClassName = `${styles.link} ${styles.profilelink} text text_type_main-medium text_color_inactive`
-    const activeClassName = `${styles.link} ${styles.profilelink} ${styles.active} text text_type_main-medium`
-    const token = getCookie('refreshToken')
-    const RequestBody = {
-        'token': token
-    }
-
-    const logout = (RequestBody: any) => {
-        dispatch(logoutUser(RequestBody))
-    }
-
-    const changeValue = (RequestBody: any) => {
+    const changeValue = (RequestBody: {
+        name: string,
+        email: string,
+        password: string
+    }) => {
         dispatch(updateInfoUser(RequestBody))
     }
 

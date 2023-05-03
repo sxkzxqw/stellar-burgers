@@ -68,7 +68,7 @@ export type TConstructorElementTemplate = {
     ingredient: TIngredientType,
     removeFunction: (uuid: string | undefined) => void,
     id: string | undefined,
-    index?: number,
+    index: number,
     isHover: boolean
 }
 

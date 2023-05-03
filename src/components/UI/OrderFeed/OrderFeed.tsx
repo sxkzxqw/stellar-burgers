@@ -3,7 +3,6 @@ import styles from './OrderFeed.module.css'
 import OrderTemplate from '../OrderTemplate/OrderTemplate';
 import { useAppSelector } from '../../../utils/types/hook';
 import { TOrder } from '../../../services/features/reducers/feedPage/reducer';
-import { useScrollbar } from '../../../hooks/use-scrollbar';
 
 const OrderFeed = () => {
     const orders = useAppSelector(state => state.rootReducer.feedPage.data?.orders)
