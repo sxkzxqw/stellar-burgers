@@ -1,8 +1,8 @@
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState } from 'react';
+import React from 'react';
 import HeaderLinks from './HeaderLinks/HeaderLinks';
 import styles from './AppHeader.module.css'
-import { Link, useResolvedPath, useMatch } from 'react-router-dom'
+import { Link, useMatch } from 'react-router-dom'
 
 const AppHeader = () => {
     const isMain = useMatch('/')

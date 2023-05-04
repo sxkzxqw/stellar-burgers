@@ -2,9 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getActionName, isActionPending, isActionRejected, isActionSuccess } from '../../utils/action-utils';
 import { deleteCookie, setCookie } from '../../API/cookies';
 import { ThunkAPI } from '../store';
-import { IUser, IUserReq } from '../../API/burger-api';
+import { IUser, IUserReq, IUserReqLog } from '../../API/burger-api';
 export const sliceName = 'user';
-
 type TUserState = {
     isAuthChecked: boolean;
     data?: {
@@ -35,7 +34,7 @@ type TUserState = {
     resetPasswordNewRequest: boolean | null;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
     isAuthChecked: false,
     data: null,
 
@@ -61,8 +60,8 @@ const initialState: TUserState = {
     resetPasswordNewRequest: false,
 }
 
-export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
-    async (_, { extra: api, rejectWithValue, dispatch }: any) => {
+export const checkUserAuth = createAsyncThunk<IUser, void, ThunkAPI>(`${sliceName}/checkUserAuth`,
+    async (_, { extra: api, rejectWithValue, dispatch }) => {
         try {
             const data = await api.getUser();
             if (!data?.success) {
@@ -79,10 +78,8 @@ export const checkUserAuth = createAsyncThunk(`${sliceName}/checkUserAuth`,
     }
 );
 
-
-
-export const registerUser = createAsyncThunk<any, IUserReq, ThunkAPI>(`${sliceName}/registerUser`,
-    async (dataUser: IUserReq, { extra: api, rejectWithValue }) => {
+export const registerUser = createAsyncThunk<IUser, IUserReqLog, ThunkAPI>(`${sliceName}/registerUser`,
+    async (dataUser: IUserReqLog, { extra: api, rejectWithValue }) => {
         const data = await api.registerUser(dataUser);
         console.log('responce', data);
         if (!data?.success) {
@@ -94,9 +91,8 @@ export const registerUser = createAsyncThunk<any, IUserReq, ThunkAPI>(`${sliceNa
     }
 );
 
-
-export const loginUser = createAsyncThunk<any, IUserReq, ThunkAPI>(`${sliceName}/loginUser`,
-    async (dataUser: IUserReq, { extra: api, rejectWithValue }) => {
+export const loginUser = createAsyncThunk<IUser, IUserReqLog, ThunkAPI>(`${sliceName}/loginUser`,
+    async (dataUser: IUserReqLog, { extra: api, rejectWithValue }) => {
         const data = await api.loginUser(dataUser);
         console.log('responce', data);
         if (!data?.success) {
@@ -108,7 +104,7 @@ export const loginUser = createAsyncThunk<any, IUserReq, ThunkAPI>(`${sliceName}
     }
 );
 
-export const logoutUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/logoutUser`,
+export const logoutUser = createAsyncThunk<IUser, { token: string | undefined }, ThunkAPI>(`${sliceName}/logoutUser`,
     async (dataUser, { extra: api, rejectWithValue }) => {
         const data = await api.logoutUser(dataUser);
         console.log('responce', data);
@@ -121,7 +117,7 @@ export const logoutUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/
     }
 );
 
-export const updateInfoUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/updateInfoUser`,
+export const updateInfoUser = createAsyncThunk<IUser, { name: string, email: string, password: string }, ThunkAPI>(`${sliceName}/updateInfoUser`,
     async (dataUser, { extra: api, rejectWithValue }) => {
         const data = await api.updateInfoUser(dataUser);
         console.log('responce', data);
@@ -132,7 +128,7 @@ export const updateInfoUser = createAsyncThunk<any, object, ThunkAPI>(`${sliceNa
     }
 );
 
-export const resetPasswordEmail = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/resetPasswordEmail`,
+export const resetPasswordEmail = createAsyncThunk<any, { email: string }, ThunkAPI>(`${sliceName}/resetPasswordEmail`,
     async (dataUser, { extra: api, rejectWithValue }) => {
         const data = await api.forgotPasswordEmail(dataUser);
         console.log('responce', data);
@@ -143,7 +139,7 @@ export const resetPasswordEmail = createAsyncThunk<any, object, ThunkAPI>(`${sli
     }
 );
 
-export const resetPasswordNew = createAsyncThunk<any, object, ThunkAPI>(`${sliceName}/resetPasswordNew`,
+export const resetPasswordNew = createAsyncThunk<any, { token: string, password: string }, ThunkAPI>(`${sliceName}/resetPasswordNew`,
     async (dataUser, { extra: api, rejectWithValue }) => {
         const data = await api.forgotPasswordNew(dataUser);
         console.log('responce', data);
@@ -153,7 +149,6 @@ export const resetPasswordNew = createAsyncThunk<any, object, ThunkAPI>(`${slice
         return data;
     }
 );
-
 
 const user = createSlice({
     name: sliceName,
@@ -196,6 +191,7 @@ const user = createSlice({
                 state[`${getActionName(action.type)}Error`] = null;
             })
             .addMatcher(isActionRejected, (state: { [key: string]: unknown }, action) => {
+                console.log('act', action);
                 state[`${getActionName(action.type)}Error`] = action.payload;
                 state[`${getActionName(action.type)}Request`] = false;
             })

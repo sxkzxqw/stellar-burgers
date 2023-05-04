@@ -1,18 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useScrollbar } from '../../../hooks/use-scrollbar';
-import { clearCurrentIngredient, getIngredients, setCurrentIngredient } from '../../../services/features/BurgerIngredientsSlice';
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import { clearCurrentIngredient } from '../../../services/features/BurgerIngredientsSlice';
 import IngredientTemplate from '../IngredientTemplate/IngredientTemplate';
-import Modal from '../Modal/Modal';
-import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import styles from './BurgerIngredients.module.css';
 import MenuNavigation from './MenuNavigation/MenuNavigation';
-import { useDispatch, useSelector } from 'react-redux';
 import { isModalVisible, selectBuns, selectMains, selectSauces } from '../../../services/features/selectors/burgerIngredientsselectors';
-import { Routes, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
 import { TIngredientType } from '../../../utils/types/types';
+import Loader from '../Loader/Loader';
 
 const BurgerIngredients = () => {
 
@@ -60,7 +57,7 @@ const BurgerIngredients = () => {
             </h1>
             <MenuNavigation current={current} setCurrent={setCurrent} />
             {isLoading
-                ? <h1 className={`${styles.loaderText} text text_type_main-large`}>Loading...</h1>
+                ? <Loader />
                 : <div className={styles.menu__options} style={{ height: hasScroll ? '670px' : 'auto' }} ref={wrapper}>
                     <article id={'bun'} ref={refBun}>
                         <h2 className="text text_type_main-medium">Булки</h2>

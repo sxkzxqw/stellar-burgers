@@ -1,7 +1,6 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import styles from './MenuNavigation.module.css';
-import PropTypes from 'prop-types';
 import { TMenuNavigation } from '../../../../utils/types/types';
 
 const MenuNavigation: FC<TMenuNavigation> = ({ current, setCurrent }) => {

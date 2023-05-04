@@ -1,24 +1,20 @@
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useState, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useMemo, SyntheticEvent } from 'react';
 import Modal from '../Modal/Modal';
-import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import styles from './BurgerConstructor.module.css';
 import { useDrop } from 'react-dnd';
 import { addConstructorElement, clearElements, removeConstructorElement } from '../../../services/features/BurgerConstructorSlice';
-import { sendOrder, setOrderDetails } from '../../../services/features/OrderSlice';
+import { sendOrder } from '../../../services/features/OrderSlice';
 import ConstructorElementTemplate from '../ConstructorElementTemplate/ConstructorElementTemplate';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
-import { RootState } from '../../../services/store';
-
 
 const modalRoot = document.getElementById('modal');
 
 const BurgerConstructor = () => {
 
-    const [modal, setModal] = useState(null);
+    const [modal, setModal] = useState<SyntheticEvent | null>(null);
     const navigate = useNavigate()
 
 
@@ -30,7 +26,8 @@ const BurgerConstructor = () => {
     }
 
     const isAuth = useAppSelector(state => state.rootReducer?.user?.data)
-    function setModalState(state: any) {
+    function setModalState(state: SyntheticEvent) {
+        console.log(state)
         if (isAuth != null) {
             sendRequest()
             setModal(state)
@@ -66,12 +63,16 @@ const BurgerConstructor = () => {
 
     const sendRequest = () => {
         const requestBody = []
-        const bunsRequestFormat = bun?._id
-        requestBody.push(bunsRequestFormat);
+        const bunsRequestFormat = bun?._id;
+        if (bunsRequestFormat) {
+            requestBody.push(bunsRequestFormat);
+        }
         ingredients.forEach((ingredient) => {
             requestBody.push(ingredient._id)
         })
-        requestBody.push(bunsRequestFormat);
+        if (bunsRequestFormat) {
+            requestBody.push(bunsRequestFormat);
+        }
         dispatch(sendOrder(requestBody))
         dispatch(clearElements())
     }
@@ -101,7 +102,7 @@ const BurgerConstructor = () => {
                     />
                 }
             </div>
-            <ul className={`${styles.order__list} custom-scroll`} style={{ paddingRight: scrollbarShow ? '0px' : '8px', paddingBottom: scrollbarShow ? '0px' : '16px', paddingTop: scrollbarShow ? '0px' : '16px' }}>
+            <ul className={`${styles.order__list} custom-scroll`} style={{ paddingRight: scrollbarShow ? '0px' : '8px', paddingBottom: scrollbarShow ? '0px' : '16px', paddingTop: scrollbarShow ? '0px' : '16px' }} id='ingredientDnD'>
                 {ingredients?.map((ingredient, index) => {
                     return (
                         <ConstructorElementTemplate

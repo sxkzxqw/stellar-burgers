@@ -1,56 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './pages.module.css'
-import { NavLink, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../utils/types/hook';
-import { getCookie } from '../API/cookies';
-import { logoutUser } from '../services/features/UserSlice';
 import OrderTemplate from '../components/UI/OrderTemplate/OrderTemplate';
 import { TOrder } from '../services/features/reducers/feedPage/reducer';
+import { wsConnectOrder, wsDisconnectOrder } from '../services/features/reducers/ordersPage/actions';
+import { BURGER_API_WSS_ORDERS } from '../API/burger-api';
+import ProfileNavigation from '../components/UI/ProfileNavigation/ProfileNavigation';
 
 const OrdersPage = () => {
     const dispatch = useAppDispatch()
-    const inactiveClassName = `${styles.link} ${styles.profilelink} text text_type_main-medium text_color_inactive`
-    const activeClassName = `${styles.link} ${styles.profilelink} ${styles.active} text text_type_main-medium`
-    const token = getCookie('refreshToken')
-    const RequestBody = {
-        'token': token
-    }
+    useEffect(() => {
+        dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
+        return () => {
+            dispatch(wsDisconnectOrder())
+        }
+    }, []);
 
-    const logout = (RequestBody: any) => {
-        dispatch(logoutUser(RequestBody))
+    let ordersStore = useAppSelector(state => state.rootReducer.orderPage.data?.orders) || [];
+    function reverseArr(input: TOrder[]) {
+        var ret = new Array;
+        for (var i = input?.length - 1; i >= 0; i--) {
+            ret.push(input[i]);
+        }
+        return ret;
     }
-
-    const orders = useAppSelector(state => state.rootReducer.orderPage.data?.orders)
-    const location = useLocation()
-    const isProfileActive = location.pathname == '/profile'
-    const legnth: any = orders?.length
+    const orders = reverseArr(ordersStore)
+    const legnth: number = orders?.length
     return (
         <section className={styles.profile_orders}>
-            <nav className={styles.menu_orders}>
-                <NavLink
-                    className={isProfileActive ? `${activeClassName}` : `${inactiveClassName}`}
-                    to='/profile'
-                >
-                    Профиль
-                </NavLink>
-                <NavLink
-                    to='/profile/orders'
-                    className={({ isActive }) =>
-                        isActive ? `${activeClassName}` : `${inactiveClassName}`
-                    }
-                >
-                    История заказов
-                </NavLink>
-                <button
-                    className={`${styles.button} text text_type_main-medium text_color_inactive`}
-                    onClick={() => {
-                        logout(RequestBody)
-                    }}
-                >
-                    Выход
-                </button>
-                <span className="text text_type_main-default text_color_inactive mt-20">В этом разделе вы можете просмотреть свою историю заказов</span>
-            </nav>
+            <ProfileNavigation />
             {legnth > 0
                 ? <ul className={`${styles.orderFeed} custom-scroll`}>
                     {orders?.map((order: TOrder) => {

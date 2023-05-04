@@ -1,30 +1,53 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styles from './OrderModal.module.css'
 import { dateFormat, dateWhen } from '../../../utils/date';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../../utils/types/hook';
+import { TIngredientType } from '../../../utils/types/types';
 
 function inNotUndefined<T>(item: T | undefined): item is T {
     return item !== undefined
 }
+
+type TOrder = {
+    _id: string,
+    ingredients: string[],
+    status: string,
+    name: string,
+    createdAt: Date,
+    updatedAt: Date,
+    number: number
+}
+
 const OrderModal = () => {
+    const location = useLocation()
+    const pathname = location.pathname
+    const newPathname = pathname.toString()
+
     const ingredients = useAppSelector((state) => state.burgerIngredient.ingredients);
-    const orders = useAppSelector((state) => state.rootReducer.feedPage.data?.orders);
+    const ordersFeed = useAppSelector((state) => state.rootReducer.feedPage.data?.orders);
+    const ordersProfile = useAppSelector(state => state.rootReducer.orderPage.data?.orders)
+    let orders: TOrder[] | undefined
+    if (newPathname.includes('/profile')) {
+        orders = ordersProfile
+    } else {
+        orders = ordersFeed
+    }
     const { id } = useParams<{ id: string }>();
-    const order = useMemo(() => {
-        return orders?.find(order => order._id === id)
+    const order: TOrder | undefined = useMemo(() => {
+        return orders?.find((order: TOrder) => order._id === id)
     }, [orders, id])
 
     const orderIngredientsForImage = ingredients.filter((ingredient) => order?.ingredients.includes(ingredient._id))
 
     const orderIngredients =
-        order?.ingredients.map(id => {
+        order?.ingredients.map((id: string) => {
             return ingredients.find(item => item._id === id);
         }).filter(inNotUndefined);
 
-    const totalOrderPrice = orderIngredients?.reduce(
-        (acc, ingredient) => acc + ingredient.price,
+    const totalOrderPrice: number | undefined = orderIngredients?.reduce(
+        (acc: number, ingredient: TIngredientType) => acc + ingredient.price,
         0
     );
 
@@ -50,7 +73,7 @@ const OrderModal = () => {
                                 <p className={`${styles.text} text_type_main-default`}>{item.name}</p>
                             </div>
                             <p className={`${styles.price} text text_type_digits-default`}>
-                                {orderIngredients?.filter(i => i._id === item._id).length} x {item.price} <CurrencyIcon type='primary' />
+                                {orderIngredients?.filter((i: TIngredientType) => i._id === item._id).length} x {item.price} <CurrencyIcon type='primary' />
                             </p>
                         </li>
                     )}

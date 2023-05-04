@@ -13,6 +13,6 @@ export const isModalVisible = (state: RootState) => Boolean(state.burgerIngredie
 
 export const selectCurrentIngredient = (state: RootState) => state.burgerIngredient.currentIngredient;
 
-export const getUser = (state: any) => state[sliceName]?.data;
+export const getUser = (state: RootState) => state.rootReducer[sliceName]?.data;
 
-export const getIsAuthChecked = (store: any) => store[sliceName]?.isAuthChecked;
+export const getIsAuthChecked = (store: RootState) => store.rootReducer[sliceName]?.isAuthChecked;

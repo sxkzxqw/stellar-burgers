@@ -22,7 +22,7 @@ type TOrderState = {
     data: TOrderList | null
 }
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
     data: null
 }
 
@@ -40,5 +40,7 @@ export const feedReducer = createReducer(initialState, (builder) => {
         })
         .addCase(wsMessageFeed, (state, action) => {
             state.data = action.payload
+            console.log('feed', action.payload);
+
         })
 })

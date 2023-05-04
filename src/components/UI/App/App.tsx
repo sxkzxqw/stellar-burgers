@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import AppHeader from '../AppHeader/AppHeader';
 import './App.module.css';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
@@ -10,19 +10,17 @@ import ProfilePage from '../../../pages/ProfilePage';
 import PageNotFound from '../../../pages/PageNotFound';
 import IngredientPage from '../../../pages/IngredientPage';
 import { clearCurrentIngredient, getIngredients } from '../../../services/features/BurgerIngredientsSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import { checkUserAuth } from '../../../services/features/UserSlice';
 import { ProtectedRoute } from '../../../protectedRoutes/profileRoute';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ResetPasswordPage from '../../../pages/ResetPasswordPage';
-import { useAppDispatch, useAppSelector } from '../../../utils/types/hook';
+import { useAppDispatch } from '../../../utils/types/hook';
 import FeedPage from '../../../pages/FeedPage';
-import { wsConnectFeed, wsDisconnectFeed } from '../../../services/features/reducers/feedPage/actions';
-import { BURGER_API_WSS_FEED, BURGER_API_WSS_ORDERS } from '../../../API/burger-api';
 import OrderModal from '../OrderModal/OrderModal';
 import OrdersPage from '../../../pages/OrdersPage';
-import { wsConnectOrder, wsDisconnectOrder } from '../../../services/features/reducers/ordersPage/actions';
+import FeedOrderPageFromLink from '../../../pages/FeedOrderPageFromLink';
+import UserOrderPageFromLink from '../../../pages/UserOrderPageFromLink';
 
 
 function App() {
@@ -42,17 +40,8 @@ function App() {
     dispatch(clearCurrentIngredient())
     navigate(background.pathname || "/", { replace: true })
   }
+
   const isFromForgotPassword = location.state?.fromForgotPassword;
-
-  useEffect(() => {
-
-    dispatch(wsConnectFeed({ wsUrl: BURGER_API_WSS_FEED, withTokenRefresh: false }))
-    dispatch(wsConnectOrder({ wsUrl: BURGER_API_WSS_ORDERS, withTokenRefresh: true }))
-    return () => {
-      dispatch(wsDisconnectFeed())
-      dispatch(wsDisconnectOrder())
-    }
-  }, []);
 
   return (
     <div className="App">
@@ -87,13 +76,14 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='*' element={<PageNotFound />} />
         <Route path='ingredients/:id' element={<IngredientPage />} />
-        <Route path='feed/:id' element={<OrderModal />} />
+        <Route path='feed/:id' element={<FeedOrderPageFromLink />} />
         <Route path='/profile/orders' element={
           <ProtectedRoute>
             <OrdersPage />
           </ProtectedRoute>
         } />
-        <Route path='/profile/orders/:id' element={<OrderModal />
+        <Route path='/profile/orders/:id' element={
+          <UserOrderPageFromLink />
         } />
       </Routes>
       {background &&

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './OrderDetails.module.css';
 import doneImg from '../../../images/done.jpg';
 import { useAppSelector } from '../../../utils/types/hook';
+import Loader from '../Loader/Loader';
 
 
 const OrderDetails = () => {
@@ -13,7 +14,7 @@ const OrderDetails = () => {
             <div className={styles.content}>
                 <h2 className={`text text_type_digits-large mb-8 ${styles.digit__effect}`}>
                     {loader
-                        ? 'Loading...'
+                        ? <Loader />
                         : orderNumber?.order?.number
                     }
                 </h2>

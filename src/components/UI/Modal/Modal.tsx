@@ -32,7 +32,7 @@ const Modal: FC<TModal> = ({ children, handleClick }) => {
   return createPortal(
     <ModalOverlay>
       <div className={styles.modal}>
-        <button type='button' className={styles.button} onClick={handleClick}>
+        <button type='button' className={styles.button} onClick={handleClick} id='closeBtnModal'>
           <CloseIcon type='primary' />
         </button>
         {children}

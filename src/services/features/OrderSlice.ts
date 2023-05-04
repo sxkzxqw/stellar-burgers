@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { axiosInstance } from '../../API/Burgers';
+import { BASE_URL, axiosInstance } from '../../API/Burgers';
 import { getCookie } from '../../API/cookies';
-import axios from 'axios';
+import axios from 'axios'
+import { ThunkAPI } from '../store';
 
 type TState = {
     orderIngredients: null | string[],
@@ -15,17 +16,17 @@ type TState = {
     }
 }
 
-const initialState: TState = {
+export const initialState: TState = {
     orderIngredients: null,
     isLoading: false,
     serverResponse: null
 }
 
-export const sendOrder = createAsyncThunk(
+export const sendOrder = createAsyncThunk<any, string[], ThunkAPI>(
     'order/post',
-    async (selectOrderDetails: any, { rejectWithValue, dispatch }) => {
+    async (selectOrderDetails, { rejectWithValue, dispatch }) => {
         const res = await axios({
-            url: 'https://norma.nomoreparties.space/api/orders',
+            url: `${BASE_URL}orders`,
             method: 'POST',
             headers: {
                 authorization: getCookie('accessToken')
