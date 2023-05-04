@@ -9,12 +9,13 @@ export const ProtectedRoute: FC<TProtectedRoute> = ({ onlyUnAuth, children }) =>
     const location = useLocation();
     const isAuthChecked = useAppSelector(state => state.rootReducer?.user.isAuthChecked);
     const isLogged = getCookie('accessToken')
+    const user = useAppSelector(state => state.rootReducer?.user.data)
 
     if (!isAuthChecked) {
         return <Loader />
     }
 
-    if (onlyUnAuth && isLogged) {
+    if (onlyUnAuth && user) {
         const { from } = location.state || { from: { pathname: '/' } }
         const { background } = location.state?.from?.state || { background: null };
         console.log('nav prof')
